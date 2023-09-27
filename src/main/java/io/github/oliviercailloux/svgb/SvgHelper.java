@@ -7,9 +7,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- * From https://stackoverflow.com/q/26088839/
- * https://www.patreon.com/posts/svg-2-status-19078074 near death experience
- * http://tavmjong.free.fr/svg2_status.html SVG 2 is on life support
+ * From https://stackoverflow.com/q/26088839/ https://www.patreon.com/posts/svg-2-status-19078074
+ * near death experience http://tavmjong.free.fr/svg2_status.html SVG 2 is on life support
  * https://github.com/Fyrd/caniuse/issues/1143
  * 
  * So let’s go for SVG 1.1.
@@ -75,5 +74,4 @@ public class SvgHelper {
     svgElement.setAttribute("height", String.valueOf(size.y()));
     return svgElement;
   }
-
 }
