@@ -2,7 +2,7 @@ package io.github.oliviercailloux.svgb;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-public record SvgSize(double x, double y) implements MathSize {
+public record SvgSize (double x, double y) implements MathSize {
 
   public static SvgSize square(double length) {
     return new SvgSize(length, length);

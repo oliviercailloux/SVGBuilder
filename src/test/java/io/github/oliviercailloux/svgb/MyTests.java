@@ -29,8 +29,8 @@ public class MyTests {
 
     String actual = d.toString(doc);
     // Files.writeString(Path.of("out.svg"), actual);
-    String expected = Resources.toString(MyTests.class.getResource("Ellipse.svg"),
-        StandardCharsets.UTF_8);
+    String expected =
+        Resources.toString(MyTests.class.getResource("Ellipse.svg"), StandardCharsets.UTF_8);
     assertEquals(expected, actual);
   }
 }

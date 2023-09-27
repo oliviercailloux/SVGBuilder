@@ -1,6 +1,6 @@
 package io.github.oliviercailloux.svgb;
 
-public record SvgPoint(double x, double y) {
+public record SvgPoint (double x, double y) {
 
   public static SvgPoint zero() {
     return new SvgPoint(0d, 0d);
