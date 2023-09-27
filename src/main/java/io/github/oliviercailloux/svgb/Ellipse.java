@@ -3,7 +3,6 @@ package io.github.oliviercailloux.svgb;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.google.common.base.MoreObjects;
-
 import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
