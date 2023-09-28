@@ -8,6 +8,10 @@ public record PositiveSize (double x, double y) implements MathSize {
     return new PositiveSize(length, length);
   }
 
+  public static PositiveSize given(double x, double y) {
+    return new PositiveSize(x, y);
+  }
+
   public static PositiveSize between(DoublePoint start, DoublePoint end) {
     return new PositiveSize(end.x() - start.x(), end.y() - start.y());
   }

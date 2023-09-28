@@ -5,19 +5,20 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.Text;
 
 public class TextElement {
   public static final String NODE_NAME = "text";
 
   private final Element element;
-  private final Node content;
+  private final Text content;
 
 
-  public static TextElement using(Element text, Node content) {
+  public static TextElement using(Element text, Text content) {
     return new TextElement(text, content);
   }
 
-  public TextElement(Element text, Node content) {
+  public TextElement(Element text, Text content) {
     element = checkNotNull(text);
     this.content = checkNotNull(content);
     checkArgument(text.getNodeName().equals(NODE_NAME));

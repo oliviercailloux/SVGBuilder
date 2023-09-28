@@ -5,6 +5,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import io.github.oliviercailloux.jaris.xml.DomHelper;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Text;
 
 /**
  * From https://stackoverflow.com/q/26088839/ https://www.patreon.com/posts/svg-2-status-19078074
@@ -27,13 +28,23 @@ public class SvgDocumentHelper {
   }
 
   public void setSize(PositiveSize size) {
-    //"210"+" "+"297"
     document.getDocumentElement().setAttribute("viewBox", "0 0 "+String.valueOf(size.x())+" "+String.valueOf(size.y()));
   }
 
   public LineElement line() {
     final Element line = document.createElementNS(SVG, LineElement.NODE_NAME);
     return LineElement.using(line);
+  }
+
+  public SquareElement square() {
+    final Element rect = document.createElementNS(SVG, SquareElement.NODE_NAME);
+    return SquareElement.using(rect);
+  }
+
+  public TextElement text() {
+    final Element text = document.createElementNS(SVG, TextElement.NODE_NAME);
+    final Text content = document.createTextNode("");
+    return TextElement.using(text, content);
   }
 
   public Element ellipse(DoublePoint position, PositiveSize semiSize) {
