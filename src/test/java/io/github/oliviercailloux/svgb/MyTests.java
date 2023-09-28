@@ -8,6 +8,8 @@ import io.github.oliviercailloux.jaris.xml.DomHelper;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +25,8 @@ public class MyTests {
     LOGGER.info("Started tests.");
     DomHelper d = DomHelper.domHelper();
     Document doc = d.svg();
-    SvgHelper h = SvgHelper.using(doc);
-    Element e = h.ellipse(SvgPoint.zero(), SvgSize.square(100));
+    SvgDocumentHelper h = SvgDocumentHelper.using(doc);
+    Element e = h.ellipse(DoublePoint.zero(), PositiveSize.square(100));
     doc.getDocumentElement().appendChild(e);
 
     String actual = d.toString(doc);

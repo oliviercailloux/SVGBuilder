@@ -6,7 +6,7 @@ import com.google.common.base.MoreObjects;
 import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+/** Represents ellipses of a given size. Can be used as a canvas for SVG elements. */
 public class Ellipse {
   @SuppressWarnings("unused")
   private static final Logger LOGGER = LoggerFactory.getLogger(Ellipse.class);
@@ -17,32 +17,32 @@ public class Ellipse {
      * crossing the foci has its upper right corner at (a cos π/4, b sin π/4) = (√2 a / 2, √2 b / 2)
      * with, I think, a = √2 b. Its width is √2 a = 2 b and height is √2 b = a.
      */
-    return ab(new SvgSize(semiHeight * Math.sqrt(2d), semiHeight));
+    return ab(new PositiveSize(semiHeight * Math.sqrt(2d), semiHeight));
   }
 
-  public static Ellipse ab(SvgSize semiSize) {
+  public static Ellipse ab(PositiveSize semiSize) {
     return new Ellipse(semiSize);
   }
 
-  public static Ellipse fullSize(SvgSize size) {
+  public static Ellipse fullSize(PositiveSize size) {
     return ab(size.mult(1d / 2d));
   }
 
-  private final SvgSize semiSize;
+  private final PositiveSize semiSize;
 
-  private Ellipse(SvgSize size) {
+  private Ellipse(PositiveSize size) {
     this.semiSize = checkNotNull(size);
   }
 
-  public SvgSize semiSize() {
+  public PositiveSize semiSize() {
     return semiSize;
   }
 
-  public SvgSize size() {
+  public PositiveSize size() {
     return semiSize.mult(2d);
   }
 
-  public SvgSize inscribedRectangleSize() {
+  public PositiveSize inscribedRectangleSize() {
     return size().mult(1d / Math.sqrt(2d));
   }
 
