@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg">
+    <style>rect {
+  fill-opacity: 0;
+  stroke: black;
+  stroke-width: 1px;
+}
+text{
+  text-anchor: middle;
+}
+</style>
+    <rect height="100.0" width="100.0"/>
+    <text x="50.0" y="50.0">Hello</text>
+</svg>

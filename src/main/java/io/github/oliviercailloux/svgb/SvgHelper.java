@@ -8,8 +8,13 @@ import org.w3c.dom.Element;
 
 public class SvgHelper {
   public static Element setSize(Element svgElement, PositiveSize size) {
-    svgElement.setAttribute("width", String.valueOf(size.x()));
-    svgElement.setAttribute("height", String.valueOf(size.y()));
+    if (size.equals(PositiveSize.zero())) {
+      svgElement.removeAttribute("width");
+      svgElement.removeAttribute("height");
+    } else {
+      svgElement.setAttribute("width", String.valueOf(size.x()));
+      svgElement.setAttribute("height", String.valueOf(size.y()));
+    }
     return svgElement;
   }
 }

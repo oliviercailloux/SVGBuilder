@@ -22,13 +22,24 @@ public class SvgDocumentHelper {
   }
 
   private final Document document;
+  private Element root;
 
   private SvgDocumentHelper(Document document) {
     this.document = checkNotNull(document);
+    root = document.getDocumentElement();
+  }
+
+  public void setViewBoxSize(PositiveSize size) {
+    if (size.equals(PositiveSize.zero()))
+      root.removeAttribute("viewBox");
+    else {
+      root.setAttribute("viewBox",
+          "0 0 " + String.valueOf(size.x()) + " " + String.valueOf(size.y()));
+    }
   }
 
   public void setSize(PositiveSize size) {
-    document.getDocumentElement().setAttribute("viewBox", "0 0 "+String.valueOf(size.x())+" "+String.valueOf(size.y()));
+    SvgHelper.setSize(root, size);
   }
 
   public LineElement line() {
@@ -41,10 +52,23 @@ public class SvgDocumentHelper {
     return SquareElement.using(rect);
   }
 
+  public RectangleElement rectangle() {
+    final Element rect = document.createElementNS(SVG, RectangleElement.NODE_NAME);
+    return RectangleElement.using(rect);
+  }
+
   public TextElement text() {
     final Element text = document.createElementNS(SVG, TextElement.NODE_NAME);
     final Text content = document.createTextNode("");
+    text.appendChild(content);
     return TextElement.using(text, content);
+  }
+
+  public StyleElement style() {
+    final Element main = document.createElementNS(SVG, StyleElement.NODE_NAME);
+    final Text content = document.createTextNode("");
+    main.appendChild(content);
+    return StyleElement.using(main, content);
   }
 
   public Element ellipse(DoublePoint position, PositiveSize semiSize) {
@@ -82,9 +106,10 @@ public class SvgDocumentHelper {
     return foreignForDescription;
   }
 
-  public Element setSize(Element svgElement, PositiveSize size) {
-    svgElement.setAttribute("width", String.valueOf(size.x()));
-    svgElement.setAttribute("height", String.valueOf(size.y()));
-    return svgElement;
+  public void setStyle(String style) {
+    if (style.isEmpty()) {
+      root.removeAttribute("style");
+    } else
+      root.setAttribute("style", style);
   }
 }
