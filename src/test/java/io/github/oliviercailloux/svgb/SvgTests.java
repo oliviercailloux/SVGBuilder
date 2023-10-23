@@ -49,7 +49,9 @@ public class SvgTests {
      */
     double dpi = (2560d / 16d) / (26.85d / Math.sqrt(256d + 81d));
     verify(DoubleMath.fuzzyEquals(dpi, 109.39d, 1e-2d));
-    /* In Firefox, this line is 49.6 cm instead of 50 cm. Error is a bit less than 1%. */
+    /*
+     * In Firefox, this line seems to measure about 50 cm indeed (up to my measurement approximation, about ± 2 mm)
+     */
     LineElement line = h.line().setStart(start).setSize(PositiveSize.given(50d * dpi / 2.54d, 0d))
         .setStroke("black");
     doc.getDocumentElement().appendChild(line.getElement());
