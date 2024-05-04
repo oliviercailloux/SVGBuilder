@@ -1,0 +1,51 @@
+= SVGBuilder
+
+== TODO
+Implement SVG1 DOM and https://svgwg.org/svg2-draft/types.html#InterfaceSVGElement[SVG2 DOM] and in particular getBBox.
+
+== Batik and SVG DOM 1.0
+SVG 1.0 (2001) DOM: https://www.w3.org/TR/SVG10/java.html[Java binding] (https://stackoverflow.com/a/48388117/[thanks]).
+
+Batik 1.9 https://stackoverflow.com/a/48388117/[reportedly] depends on SVG DOM 1.0.
+Should check whether more recent https://central.sonatype.com/artifact/org.apache.xmlgraphics/batik/versions[Batik] also do.
+
+Batik 1.17 https://xmlgraphics.apache.org/batik/download.html[bin] contains a lib `xml-apis-ext-1.3.04.jar` containing `org/w3c/dom/smil` and `org/w3c/dom/svg`. https://stackoverflow.com/a/48388117/[Most probably] SVG 1.0. Most probably also in Maven central (but I did not check). Needs to be package-relocated before use anyway.
+
+https://xmlgraphics.apache.org/batik/using/scripting/java.html (might include batik-all or some similar stuff, to get SVG 1.0, to get the BBox): https://stackoverflow.com/questions/34078251/getbbox-for-embedded-svg-element-with-batik
+
+In Batik, see perhaps BBox on SVGSVGElement or SVGLocatable or such.
+
+Also perhaps https://stackoverflow.com/questions/30092651/where-has-org-apache-batik-dom-svg-svgdomimplementation-gone[this] and https://stackoverflow.com/a/63571697/[this] may be useful.
+
+== SVG DOM 1.1
+https://www.w3.org/TR/SVG11/java.html[SVG 1.1 (2011) DOM]
+
+Reportedly differs from 1.0, for example org.w3c.dom.svg.SVGTransformList.getNumberOfItems went from int to long (https://stackoverflow.com/a/48388117/[thanks]).
+
+Consider using (or modifying) https://central.sonatype.com/artifact/org.axsl.org.w3c.dom.svg/svg-dom-java[aXSL] (see their https://sourceforge.net/p/axsl/code/HEAD/tree/trunk/svg-dom/src/main/resources/readme.txt[explanation] and (empty) https://www.javadoc.io/doc/org.axsl.org.w3c.dom.svg/svg-dom-java/latest/index.html[javadoc]).
+There’s a few problems. 
+The https://sourceforge.net/p/axsl/code/HEAD/tree/trunk/svg-dom/src/main/java/org/w3c/dom/svg/[package] should specify that it is SVG1.1 so as to distinguish the interfaces from their 2 counterpart.
+There is no implementation!
+
+== SVG DOM 2
+
+== More links
+“https://www.javadoc.io/doc/org.apache.xmlgraphics/xmlgraphics-commons/latest/index.html[Apache XML Graphics Commons] is a library in which the two XML Graphics subprojects (Apache Batik and Apache FOP) extracted components which are used by both codebases”.
+
+Fails for https://www.javadoc.io/doc/org.apache.xmlgraphics/batik-all/latest/index.html[batik-all] or similar.
+
+== Vrac
+  /**
+   * Creates a new SVG DOM Document, containing only the SVG document element.
+   *
+   * @return a new {@code Document} object with a document element having namespace
+   *         {@link #SVG_NS_URI} and name “{@code svg}”.
+   */
+  public Document svg() {
+    /*
+     * if https://issues.apache.org/jira/browse/BATIK-1325[] ever gets implemented, we could even
+     * return an SVGDocument here (though that doesn’t seem useful, after all).
+     */
+    return createDocument(SVG_NS_URI.toString(), "svg");
+  }
+
