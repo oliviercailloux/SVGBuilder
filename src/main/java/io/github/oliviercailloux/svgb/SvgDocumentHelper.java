@@ -2,43 +2,52 @@ package io.github.oliviercailloux.svgb;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import io.github.oliviercailloux.jaris.xml.DomHelper;
+import io.github.oliviercailloux.jaris.xml.XmlName;
 import java.net.URI;
-import javax.xml.namespace.QName;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
-import io.github.oliviercailloux.jaris.xml.DomHelper;
-import io.github.oliviercailloux.jaris.xml.XmlName;
-
 /**
  * From https://stackoverflow.com/q/26088839/: “
-
-Asking if a browser supports SVG 2 is like asking if a browser supports HTML5. It seems like a totally reasonable question, but it doesn't work like that.
-
-The best we can do is test if a browser supports a feature, rather than a version of spec.
-”
-
-Jan 2016: “Browsers are implementing individual features as the spec stabilizes and interest exists, they are not waiting to implement "SVG 2" all at once.” https://github.com/Fyrd/caniuse/issues/1143
-
-Nov 2016: “SVG 2 is on life support.” http://tavmjong.free.fr/svg2_status.html
-
-May 2018: “After a near death experience, SVG 2 is back.”, https://www.patreon.com/posts/svg-2-status-19078074, Tavmjong Bah
-
-Sep 2022: “It seems chromium suppports ~40-50% of SVG 2 which is huge and enable many impacting usecases.” https://github.com/Fyrd/caniuse/issues/1143#issuecomment-1233975910
-
-Jan 2023: some features of SVG 2 work, but nobody seem to know which ones. https://cloudfour.com/thinks/so-you-can-set-an-svg-circles-radius-in-css/
-
-March 2023: https://svgwg.org/svg2-draft/ (but the three commits of 2023 are one line each, https://github.com/w3c/svgwg/commits/main/)
+ * 
+ * Asking if a browser supports SVG 2 is like asking if a browser supports HTML5. It seems like a
+ * totally reasonable question, but it doesn't work like that.
+ * 
+ * The best we can do is test if a browser supports a feature, rather than a version of spec. ”
+ * 
+ * Jan 2016: “Browsers are implementing individual features as the spec stabilizes and interest
+ * exists, they are not waiting to implement "SVG 2" all at once.”
+ * https://github.com/Fyrd/caniuse/issues/1143
+ * 
+ * Nov 2016: “SVG 2 is on life support.” http://tavmjong.free.fr/svg2_status.html
+ * 
+ * May 2018: “After a near death experience, SVG 2 is back.”,
+ * https://www.patreon.com/posts/svg-2-status-19078074, Tavmjong Bah
+ * 
+ * Sep 2022: “It seems chromium suppports ~40-50% of SVG 2 which is huge and enable many impacting
+ * usecases.” https://github.com/Fyrd/caniuse/issues/1143#issuecomment-1233975910
+ * 
+ * Jan 2023: some features of SVG 2 work, but nobody seem to know which ones.
+ * https://cloudfour.com/thinks/so-you-can-set-an-svg-circles-radius-in-css/
+ * 
+ * March 2023: https://svgwg.org/svg2-draft/ (but the three commits of 2023 are one line each,
+ * https://github.com/w3c/svgwg/commits/main/)
  * 
  * 
  * https://github.com/Fyrd/caniuse/issues/1143
  * 
- * We follow MDN (eg do not use version and baseProfile attributes, “Both version and baseProfile attributes are deprecated in SVG 2”, https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Getting_Started).
+ * We follow MDN (eg do not use version and baseProfile attributes, “Both version and baseProfile
+ * attributes are deprecated in SVG 2”,
+ * https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Getting_Started).
  * 
  */
 public class SvgDocumentHelper {
-  /** “The SVG 2 namespace is http://www.w3.org/2000/svg, which is the same as for earlier versions of SVG.”, https://svgwg.org/svg2-draft/struct.html */
+  /**
+   * “The SVG 2 namespace is http://www.w3.org/2000/svg, which is the same as for earlier versions
+   * of SVG.”, https://svgwg.org/svg2-draft/struct.html
+   */
   public static final URI SVG_NS_URI = URI.create("http://www.w3.org/2000/svg");
   private static final String SVG_NS = SVG_NS_URI.toString();
 
@@ -67,9 +76,9 @@ public class SvgDocumentHelper {
   }
 
   public void setViewBoxSize(PositiveSize size) {
-    if (size.equals(PositiveSize.zero()))
+    if (size.equals(PositiveSize.zero())) {
       root.removeAttribute("viewBox");
-    else {
+    } else {
       root.setAttribute("viewBox",
           "0 0 " + String.valueOf(size.x()) + " " + String.valueOf(size.y()));
     }
@@ -83,7 +92,7 @@ public class SvgDocumentHelper {
     final Element g = document.createElementNS(SVG_NS, GElement.NODE_NAME);
     return GElement.using(g);
   }
-  
+
   public LineElement line() {
     final Element line = document.createElementNS(SVG_NS, LineElement.NODE_NAME);
     return LineElement.using(line);
@@ -151,7 +160,8 @@ public class SvgDocumentHelper {
   public void setStyle(String style) {
     if (style.isEmpty()) {
       root.removeAttribute("style");
-    } else
+    } else {
       root.setAttribute("style", style);
+    }
   }
 }

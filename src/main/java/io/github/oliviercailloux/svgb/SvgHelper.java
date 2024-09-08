@@ -1,14 +1,9 @@
 package io.github.oliviercailloux.svgb;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.util.Optional;
-import io.github.oliviercailloux.jaris.exceptions.TryCatchAll;
-import io.github.oliviercailloux.jaris.xml.DomHelper;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
 import com.google.common.base.Strings;
+import io.github.oliviercailloux.jaris.exceptions.TryCatchAll;
+import java.util.Optional;
+import org.w3c.dom.Element;
 
 public class SvgHelper {
   public static Optional<String> tryGetString(Element svgElement, String attributeName) {

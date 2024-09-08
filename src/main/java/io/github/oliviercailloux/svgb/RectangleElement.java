@@ -2,11 +2,7 @@ package io.github.oliviercailloux.svgb;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-import java.util.Optional;
-
 import org.w3c.dom.Element;
-
-import com.google.common.base.Strings;
 
 public class RectangleElement {
   public static final String NODE_NAME = "rect";
@@ -29,7 +25,7 @@ public class RectangleElement {
   private double x() {
     return SvgHelper.tryGetDouble(element, "x").orElse(0d);
   }
-  
+
   private double y() {
     return SvgHelper.tryGetDouble(element, "y").orElse(0d);
   }
@@ -41,7 +37,7 @@ public class RectangleElement {
   private double width() {
     return SvgHelper.tryGetDouble(element, "width").orElse(0d);
   }
-  
+
   private double height() {
     return SvgHelper.tryGetDouble(element, "height").orElse(0d);
   }
@@ -86,10 +82,11 @@ public class RectangleElement {
   }
 
   public RectangleElement setStyle(String style) {
-    if (style.isEmpty())
+    if (style.isEmpty()) {
       element.removeAttribute("style");
-    else
+    } else {
       element.setAttribute("style", style);
+    }
     return this;
   }
 }

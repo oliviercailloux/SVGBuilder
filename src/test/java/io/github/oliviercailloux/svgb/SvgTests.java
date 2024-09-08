@@ -44,8 +44,8 @@ public class SvgTests {
     g.appendChild(e);
 
     String actual = d.toString(h.document());
-    String expected =
-        Resources.toString(SvgTests.class.getResource("Translated ellipse.svg"), StandardCharsets.UTF_8);
+    String expected = Resources.toString(SvgTests.class.getResource("Translated ellipse.svg"),
+        StandardCharsets.UTF_8);
     assertEquals(expected, actual);
   }
 
@@ -60,7 +60,8 @@ public class SvgTests {
     double dpi = (2560d / 16d) / (26.85d / Math.sqrt(256d + 81d));
     verify(DoubleMath.fuzzyEquals(dpi, 109.39d, 1e-2d));
     /*
-     * In Firefox, this line seems to measure about 50 cm indeed (up to my measurement approximation, about ± 2 mm)
+     * In Firefox, this line seems to measure about 50 cm indeed (up to my measurement
+     * approximation, about ± 2 mm)
      */
     LineElement line = h.line().setStart(start).setSize(PositiveSize.given(50d * dpi / 2.54d, 0d))
         .setStroke("black");

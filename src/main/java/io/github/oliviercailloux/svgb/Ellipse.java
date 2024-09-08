@@ -6,6 +6,7 @@ import com.google.common.base.MoreObjects;
 import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 /** Represents ellipses of a given size. Can be used as a canvas for SVG elements. */
 public class Ellipse {
   @SuppressWarnings("unused")

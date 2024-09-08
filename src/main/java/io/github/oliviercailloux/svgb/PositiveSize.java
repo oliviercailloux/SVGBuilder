@@ -14,19 +14,19 @@ public record PositiveSize (double x, double y) implements MathSize {
 
   public static PositiveSize square(double length) {
     return new PositiveSize(length, length);
-  }  
+  }
 
   public static PositiveSize between(DoublePoint start, DoublePoint end) {
     return new PositiveSize(end.x() - start.x(), end.y() - start.y());
   }
-  
+
   public static PositiveSize horizontal(double length) {
     return new PositiveSize(length, 0d);
-  }  
-  
+  }
+
   public static PositiveSize vertical(double height) {
     return new PositiveSize(0d, height);
-  }  
+  }
 
   public PositiveSize {
     checkArgument(Double.isFinite(x));
@@ -42,13 +42,13 @@ public record PositiveSize (double x, double y) implements MathSize {
   public MathSize multMath(double factor) {
     return new GeneralSize(x * factor, y * factor);
   }
-  
+
   public PositiveSize mult(double factor) {
     checkArgument(factor >= 0d);
     return new PositiveSize(x * factor, y * factor);
   }
-  
-    public MathSize opposite() {
-      return multMath(-1d);
-    }
+
+  public MathSize opposite() {
+    return multMath(-1d);
+  }
 }

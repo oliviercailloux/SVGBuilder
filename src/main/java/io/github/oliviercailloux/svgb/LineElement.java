@@ -39,7 +39,7 @@ public class LineElement {
     element.setAttribute("y1", String.valueOf(start.y()));
     return this;
   }
-  
+
   /** Does not support length or percentage. */
   public DoublePoint getDestination() {
     checkState(element.getAttribute("x2").isEmpty() == element.getAttribute("y2").isEmpty());
@@ -73,10 +73,11 @@ public class LineElement {
   }
 
   public LineElement setStroke(String stroke) {
-    if (stroke.isEmpty())
+    if (stroke.isEmpty()) {
       element.removeAttribute("stroke");
-    else
+    } else {
       element.setAttribute("stroke", stroke);
+    }
     return this;
   }
 }

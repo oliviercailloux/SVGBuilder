@@ -23,7 +23,6 @@ public class GElement {
   }
 
   public GElement translate(MathSize offset) {
-    // element.setAttribute("transform", "translate(" + String.valueOf(offset.x()) + ", " + String.valueOf(offset.y()) + ")");
     element.setAttribute("transform", "translate(%s, %s)".formatted(offset.x(), offset.y()));
     return this;
   }
