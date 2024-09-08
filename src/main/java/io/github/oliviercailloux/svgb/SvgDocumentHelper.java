@@ -3,12 +3,13 @@ package io.github.oliviercailloux.svgb;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.net.URI;
-
+import javax.xml.namespace.QName;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
 import io.github.oliviercailloux.jaris.xml.DomHelper;
+import io.github.oliviercailloux.jaris.xml.XmlName;
 
 /**
  * From https://stackoverflow.com/q/26088839/: “
@@ -46,7 +47,7 @@ public class SvgDocumentHelper {
   }
 
   public static SvgDocumentHelper using(DomHelper helper) {
-    return using(helper.createDocument(SVG_NS, "svg"));
+    return using(helper.createDocument(XmlName.expandedName(SVG_NS_URI, "svg").toQName()));
   }
 
   public static SvgDocumentHelper using(Document document) {

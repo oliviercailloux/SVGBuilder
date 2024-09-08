@@ -3,20 +3,15 @@ package io.github.oliviercailloux.svgb;
 import static com.google.common.base.Verify.verify;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.google.common.io.Resources;
+import com.google.common.math.DoubleMath;
+import io.github.oliviercailloux.jaris.xml.DomHelper;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.svg.SVGDocument;
-import com.google.common.io.Resources;
-import com.google.common.math.DoubleMath;
-
-import io.github.oliviercailloux.jaris.xml.DomHelper;
 
 public class SvgTests {
   @SuppressWarnings("unused")
