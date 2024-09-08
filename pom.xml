@@ -4,7 +4,7 @@
   <parent>
     <groupId>io.github.oliviercailloux</groupId>
     <artifactId>pom</artifactId>
-    <version>0.0.18</version>
+    <version>0.0.22</version>
   </parent>
   <artifactId>svgb</artifactId>
   <version>0.0.2-SNAPSHOT</version>
