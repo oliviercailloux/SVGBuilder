@@ -2,42 +2,38 @@ package io.github.oliviercailloux.svgb;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
+import io.github.oliviercailloux.geometry.Displacement;
+import io.github.oliviercailloux.geometry.Point;
 import org.w3c.dom.Element;
+import org.w3c.dom.css.Rect;
 
 public class SquareElement {
-  public static final String NODE_NAME = "rect";
-
-  private final Element element;
+  private final RectangleElement delegate;
 
   public static SquareElement using(Element rect) {
-    return new SquareElement(rect);
+    return new SquareElement(RectangleElement.using(rect));
   }
 
-  public SquareElement(Element rect) {
-    element = rect;
-    checkArgument(rect.getNodeName().equals(NODE_NAME));
+  private SquareElement(RectangleElement delegate) {
+    this.delegate = delegate;
   }
 
   public Element getElement() {
-    return element;
+    return delegate.getElement();
   }
-  
-  public SquareElement setStart(DoublePoint start) {
-    element.setAttribute("x", String.valueOf(start.x()));
-    element.setAttribute("y", String.valueOf(start.y()));
+
+  public SquareElement setStart(Point start) {
+    delegate.setStart(start);
     return this;
   }
 
   public SquareElement setSize(double size) {
-    checkArgument(size >= 0d);
-    element.setAttribute("width", String.valueOf(size));
-    element.setAttribute("height", String.valueOf(size));
+    delegate.setSize(Point.given(size, size));
     return this;
   }
 
   public SquareElement setRounding(double rx) {
-    checkArgument(rx >= 0d);
-    element.setAttribute("rx", String.valueOf(rx));
+    delegate.setRounding(rx);
     return this;
   }
 }

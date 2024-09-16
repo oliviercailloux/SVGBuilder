@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg">
-    <g transform="translate(200.0, 200.0)">
-        <ellipse rx="100.0" ry="100.0"/>
+<svg xmlns="http://www.w3.org/2000/svg" height="500" width="500">
+    <g transform="translate(200, 200)">
+        <ellipse cx="100" cy="100" rx="50" ry="50"/>
     </g>
 </svg>

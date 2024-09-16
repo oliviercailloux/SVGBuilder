@@ -1,4 +1,4 @@
-package io.github.oliviercailloux.svgb;
+package io.github.oliviercailloux.geometry;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -18,32 +18,32 @@ public class Ellipse {
      * crossing the foci has its upper right corner at (a cos π/4, b sin π/4) = (√2 a / 2, √2 b / 2)
      * with, I think, a = √2 b. Its width is √2 a = 2 b and height is √2 b = a.
      */
-    return ab(new PositiveSize(semiHeight * Math.sqrt(2d), semiHeight));
+    return ab(new Point(semiHeight * Math.sqrt(2d), semiHeight));
   }
 
-  public static Ellipse ab(PositiveSize semiSize) {
+  public static Ellipse ab(Point semiSize) {
     return new Ellipse(semiSize);
   }
 
-  public static Ellipse fullSize(PositiveSize size) {
+  public static Ellipse fullSize(Point size) {
     return ab(size.mult(1d / 2d));
   }
 
-  private final PositiveSize semiSize;
+  private final Point semiSize;
 
-  private Ellipse(PositiveSize size) {
+  private Ellipse(Point size) {
     this.semiSize = checkNotNull(size);
   }
 
-  public PositiveSize semiSize() {
+  public Point semiSize() {
     return semiSize;
   }
 
-  public PositiveSize size() {
+  public Point size() {
     return semiSize.mult(2d);
   }
 
-  public PositiveSize inscribedRectangleSize() {
+  public Point inscribedRectangleSize() {
     return size().mult(1d / Math.sqrt(2d));
   }
 

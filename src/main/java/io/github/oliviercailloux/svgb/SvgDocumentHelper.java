@@ -2,6 +2,8 @@ package io.github.oliviercailloux.svgb;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import io.github.oliviercailloux.geometry.Point;
+import io.github.oliviercailloux.geometry.Zone;
 import io.github.oliviercailloux.jaris.xml.DomHelper;
 import io.github.oliviercailloux.jaris.xml.XmlName;
 import java.net.URI;
@@ -75,16 +77,16 @@ public class SvgDocumentHelper {
     return document;
   }
 
-  public void setViewBoxSize(PositiveSize size) {
-    if (size.equals(PositiveSize.zero())) {
+  public void setViewBoxSize(Point size) {
+    if (size.equals(Point.origin())) {
       root.removeAttribute("viewBox");
     } else {
       root.setAttribute("viewBox",
-          "0 0 " + String.valueOf(size.x()) + " " + String.valueOf(size.y()));
+          "0 0 " + SvgHelper.format(size.x()) + " " + SvgHelper.format(size.y()));
     }
   }
 
-  public void setSize(PositiveSize size) {
+  public void setSize(Point size) {
     SvgHelper.setSize(root, size);
   }
 
@@ -93,19 +95,19 @@ public class SvgDocumentHelper {
     return GElement.using(g);
   }
 
-  public LineElement line() {
+  public LineElement line(Zone zone) {
     final Element line = document.createElementNS(SVG_NS, LineElement.NODE_NAME);
-    return LineElement.using(line);
+    return LineElement.using(line).across(zone);
   }
 
-  public SquareElement square() {
-    final Element rect = document.createElementNS(SVG_NS, SquareElement.NODE_NAME);
-    return SquareElement.using(rect);
-  }
-
-  public RectangleElement rectangle() {
+  public SquareElement square(Point start, double length) {
     final Element rect = document.createElementNS(SVG_NS, RectangleElement.NODE_NAME);
-    return RectangleElement.using(rect);
+    return SquareElement.using(rect).setStart(start).setSize(length);
+  }
+
+  public RectangleElement rectangle(Zone zone) {
+    final Element rect = document.createElementNS(SVG_NS, RectangleElement.NODE_NAME);
+    return RectangleElement.using(rect).setStart(zone.start()).setSize(zone.size());
   }
 
   public TextElement text() {
@@ -122,39 +124,33 @@ public class SvgDocumentHelper {
     return StyleElement.using(main, content);
   }
 
-  public Element ellipse(DoublePoint position, PositiveSize semiSize) {
+  public Element ellipse(Zone zone) {
     final Element ell = document.createElementNS(SVG_NS, "ellipse");
-    if (!position.equals(DoublePoint.zero())) {
-      ell.setAttribute("cx", String.valueOf(position.x()));
-      ell.setAttribute("cy", String.valueOf(position.y()));
+    final Point center = zone.center();
+    if (!center.equals(Point.origin())) {
+      ell.setAttribute("cx", SvgHelper.format(center.x()));
+      ell.setAttribute("cy", SvgHelper.format(center.y()));
     }
-    ell.setAttribute("rx", String.valueOf(semiSize.x()));
-    ell.setAttribute("ry", String.valueOf(semiSize.y()));
+    final Point semiSize = zone.size().mult(0.5);
+    ell.setAttribute("rx", SvgHelper.format(semiSize.x()));
+    ell.setAttribute("ry", SvgHelper.format(semiSize.y()));
     return ell;
   }
 
-  public Element foreignCenteredAt(DoublePoint center, PositiveSize size) {
-    final Element foreignForDescription = document.createElementNS(SVG_NS, "foreignObject");
-    foreignForDescription.setAttribute("x", String.valueOf(center.x() - size.x() / 2d));
-    foreignForDescription.setAttribute("y", String.valueOf(center.y() - size.y() / 2d));
-    foreignForDescription.setAttribute("width", String.valueOf(size.x()));
-    foreignForDescription.setAttribute("height", String.valueOf(size.y()));
-    return foreignForDescription;
+  public Element foreign(Zone zone) {
+    final Element el = document.createElementNS(SVG_NS, "foreignObject");
+    SvgHelper.setPosition(el, zone.start());
+    SvgHelper.setSize(el, zone.size());
+    return el;
   }
 
-  public Element useCenteredAt(DoublePoint center, PositiveSize size) {
-    final DoublePoint corner =
-        new DoublePoint(center.x() - size.x() / 2d, center.y() - size.y() / 2d);
-    return useCorneredAt(corner, size);
-  }
-
-  public Element useCorneredAt(DoublePoint corner, PositiveSize size) {
-    final Element foreignForDescription = document.createElementNS(SVG_NS, "use");
-    foreignForDescription.setAttribute("x", String.valueOf(corner.x()));
-    foreignForDescription.setAttribute("y", String.valueOf(corner.y()));
-    foreignForDescription.setAttribute("width", String.valueOf(size.x()));
-    foreignForDescription.setAttribute("height", String.valueOf(size.y()));
-    return foreignForDescription;
+  public Element use(Zone zone) {
+    final Element el = document.createElementNS(SVG_NS, "use");
+    SvgHelper.setPosition(el, zone.start());
+    if (!zone.size().equals(Point.origin())) {
+      SvgHelper.setSize(el, zone.size());
+    }
+    return el;
   }
 
   public void setStyle(String style) {

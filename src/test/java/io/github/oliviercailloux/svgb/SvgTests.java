@@ -5,8 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.google.common.io.Resources;
 import com.google.common.math.DoubleMath;
+import io.github.oliviercailloux.geometry.Displacement;
+import io.github.oliviercailloux.geometry.Point;
+import io.github.oliviercailloux.geometry.Zone;
 import io.github.oliviercailloux.jaris.xml.DomHelper;
 import java.nio.charset.StandardCharsets;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.util.Locale;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +31,7 @@ public class SvgTests {
   void testEllipse() throws Exception {
     DomHelper d = DomHelper.domHelper();
     SvgDocumentHelper h = SvgDocumentHelper.using(d);
-    Element e = h.ellipse(DoublePoint.zero(), PositiveSize.square(100));
+    Element e = h.ellipse(Zone.cornerMove(Point.origin(), Displacement.allDirections(200)));
     h.document().getDocumentElement().appendChild(e);
 
     String actual = d.toString(h.document());
@@ -38,9 +45,10 @@ public class SvgTests {
   void testG() throws Exception {
     DomHelper d = DomHelper.domHelper();
     SvgDocumentHelper h = SvgDocumentHelper.using(d);
-    Element g = h.g().translate(PositiveSize.square(200)).getElement();
+    SvgHelper.setSize(h.document().getDocumentElement(), Point.square(500));
+    Element g = h.g().translate(Point.square(200)).getElement();
     h.document().getDocumentElement().appendChild(g);
-    Element e = h.ellipse(DoublePoint.zero(), PositiveSize.square(100));
+    Element e = h.ellipse(Zone.cornerMove(Point.square(50), Displacement.allDirections(100)));
     g.appendChild(e);
 
     String actual = d.toString(h.document());
@@ -49,11 +57,18 @@ public class SvgTests {
     assertEquals(expected, actual);
   }
 
+  private DecimalFormat usFmt(String pattern) {
+    return new DecimalFormat(pattern, new DecimalFormatSymbols(Locale.US));
+    // DecimalFormat fmt = (DecimalFormat) NumberFormat.getInstance(Locale.US);
+    // fmt.applyPattern(pattern);
+    // return fmt;
+  }
+
   @Test
   void testDrawingLine() throws Exception {
     DomHelper d = DomHelper.domHelper();
     SvgDocumentHelper h = SvgDocumentHelper.using(d);
-    DoublePoint start = DoublePoint.given(1d, 1d).mult(PIXELS_PER_CM);
+    Point start = Point.given(1d, 1d).mult(PIXELS_PER_CM);
     /*
      * Scaling for my bigger screen (27 ″, 2560×1440 pixels). Real diag is 68.2 cm = 26.85 ″.
      */
@@ -63,7 +78,7 @@ public class SvgTests {
      * In Firefox, this line seems to measure about 50 cm indeed (up to my measurement
      * approximation, about ± 2 mm)
      */
-    LineElement line = h.line().setStart(start).setSize(PositiveSize.given(50d * dpi / 2.54d, 0d))
+    LineElement line = h.line(Zone.cornerMove(start, Displacement.given(50d * dpi / 2.54d, 0d)))
         .setStroke("black");
     h.document().getDocumentElement().appendChild(line.getElement());
 
@@ -90,9 +105,9 @@ public class SvgTests {
     Document doc = h.document();
     doc.getDocumentElement().appendChild(style.getElement());
     RectangleElement rect =
-        h.rectangle().setStart(DoublePoint.zero()).setSize(PositiveSize.square(100));
+        h.rectangle(Zone.cornerMove(Point.origin(), Displacement.allDirections(100)));
     doc.getDocumentElement().appendChild(rect.getElement());
-    TextElement text = h.text().setBaselineStart(DoublePoint.given(50d, 50d)).setContent("Hello");
+    TextElement text = h.text().setBaselineStart(Point.given(50d, 50d)).setContent("Hello");
     doc.getDocumentElement().appendChild(text.getElement());
 
     String actual = d.toString(doc);

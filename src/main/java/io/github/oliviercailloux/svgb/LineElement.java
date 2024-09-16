@@ -4,6 +4,8 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.base.Verify.verify;
 
+import io.github.oliviercailloux.geometry.Point;
+import io.github.oliviercailloux.geometry.Zone;
 import org.w3c.dom.Element;
 
 public class LineElement {
@@ -15,7 +17,7 @@ public class LineElement {
     return new LineElement(line);
   }
 
-  public LineElement(Element line) {
+  private LineElement(Element line) {
     element = line;
     checkArgument(line.getNodeName().equals(NODE_NAME));
   }
@@ -24,50 +26,54 @@ public class LineElement {
     return element;
   }
 
+  public LineElement across(Zone zone) {
+    return setStart(zone.start()).setDestination(zone.end());
+  }
+
   /** Does not support length or percentage. */
-  public DoublePoint getStart() {
+  public Point getStart() {
     checkState(element.getAttribute("x1").isEmpty() == element.getAttribute("y1").isEmpty());
     String xStr = element.getAttribute("x1");
     double x = xStr.isEmpty() ? 0d : Double.parseDouble(xStr);
     String yStr = element.getAttribute("y1");
     double y = yStr.isEmpty() ? 0d : Double.parseDouble(yStr);
-    return DoublePoint.given(x, y);
+    return Point.given(x, y);
   }
 
-  public LineElement setStart(DoublePoint start) {
-    element.setAttribute("x1", String.valueOf(start.x()));
-    element.setAttribute("y1", String.valueOf(start.y()));
+  public LineElement setStart(Point start) {
+    element.setAttribute("x1", SvgHelper.format(start.x()));
+    element.setAttribute("y1", SvgHelper.format(start.y()));
     return this;
   }
 
   /** Does not support length or percentage. */
-  public DoublePoint getDestination() {
+  public Point getDestination() {
     checkState(element.getAttribute("x2").isEmpty() == element.getAttribute("y2").isEmpty());
     String xStr = element.getAttribute("x2");
     double x = xStr.isEmpty() ? 0d : Double.parseDouble(xStr);
     String yStr = element.getAttribute("y2");
     double y = yStr.isEmpty() ? 0d : Double.parseDouble(yStr);
-    return DoublePoint.given(x, y);
+    return Point.given(x, y);
   }
 
-  public LineElement setDestination(DoublePoint destination) {
-    element.setAttribute("x2", String.valueOf(destination.x()));
-    element.setAttribute("y2", String.valueOf(destination.y()));
+  public LineElement setDestination(Point destination) {
+    element.setAttribute("x2", SvgHelper.format(destination.x()));
+    element.setAttribute("y2", SvgHelper.format(destination.y()));
     return this;
   }
 
-  public LineElement setSize(PositiveSize size) {
+  public LineElement setSize(Point size) {
     checkState(element.getAttribute("x1").isEmpty() == element.getAttribute("y1").isEmpty());
     boolean startSet = !element.getAttribute("x1").isEmpty();
     checkState(element.getAttribute("x2").isEmpty() == element.getAttribute("y2").isEmpty());
     boolean destSet = !element.getAttribute("x2").isEmpty();
     checkArgument(!startSet || !destSet);
     if (!destSet) {
-      DoublePoint start = getStart();
-      setDestination(start.plus(size));
+      Point start = getStart();
+      setDestination(start.moveBy(size));
     } else {
       verify(!startSet);
-      setStart(getDestination().plus(size.opposite()));
+      setStart(getDestination().moveBy(size.opposite()));
     }
     return this;
   }

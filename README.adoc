@@ -1,5 +1,26 @@
 = SVGBuilder
 
+== Point, vector, size, displacement
+https://gamedev.stackexchange.com/questions/44314/do-i-need-a-point-and-a-vector-object-or-just-using-a-vector-object-to-represen
+A size is positive.
+A point (as an SVG coordinate in a coordinate system that starts at zero) is positive.
+A displacement (mathematically corresponding to a vector) is not necessarily positive.
+
+Currently, I have:
+MathSize anything [DoubleVector]
+PositiveSize implements MathSize. [DoublePoint]
+GeneralSize implements MathSize. Unused? [DoubleDisplacement]
+DoublePoint, anything [DoubleDisplacement]
+
+I should have:
+Vector (unspecified): IntVector, DoubleVector
+Displacement (anything): IntDisplacement, DoubleDisplacement. Implements Vector.
+Size or point (positive): IntPoint, DoublePoint. Implements Vector.
+
+Vector moveBy(vector) guaranteed only if result is positive.
+Point plus displacement/point is a point (moveBy).
+Displacement plus point/displacement is a displacement (moveBy).
+
 == TODO
 Implement SVG1 DOM and https://svgwg.org/svg2-draft/types.html#InterfaceSVGElement[SVG2 DOM] and in particular getBBox.
 

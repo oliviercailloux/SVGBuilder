@@ -2,6 +2,7 @@ package io.github.oliviercailloux.svgb;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
+import io.github.oliviercailloux.geometry.Vector;
 import org.w3c.dom.Element;
 
 public class GElement {
@@ -22,8 +23,8 @@ public class GElement {
     return element;
   }
 
-  public GElement translate(MathSize offset) {
-    element.setAttribute("transform", "translate(%s, %s)".formatted(offset.x(), offset.y()));
+  public GElement translate(Vector offset) {
+    element.setAttribute("transform", "translate(%s, %s)".formatted(SvgHelper.format(offset.x()), SvgHelper.format(offset.y())));
     return this;
   }
 }

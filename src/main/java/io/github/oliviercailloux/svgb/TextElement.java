@@ -3,6 +3,7 @@ package io.github.oliviercailloux.svgb;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import io.github.oliviercailloux.geometry.Point;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
@@ -31,9 +32,9 @@ public class TextElement {
     return this;
   }
 
-  public TextElement setBaselineStart(DoublePoint start) {
-    element.setAttribute("x", String.valueOf(start.x()));
-    element.setAttribute("y", String.valueOf(start.y()));
+  public TextElement setBaselineStart(Point start) {
+    element.setAttribute("x", SvgHelper.format(start.x()));
+    element.setAttribute("y", SvgHelper.format(start.y()));
     return this;
   }
 }

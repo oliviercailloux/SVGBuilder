@@ -9,6 +9,6 @@ text{
   text-anchor: middle;
 }
 </style>
-    <rect height="100.0" width="100.0"/>
-    <text x="50.0" y="50.0">Hello</text>
+    <rect height="100" width="100"/>
+    <text x="50" y="50">Hello</text>
 </svg>
