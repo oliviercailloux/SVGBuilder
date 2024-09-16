@@ -10,15 +10,16 @@ import java.util.Optional;
 import org.w3c.dom.Element;
 
 public class SvgHelper {
-  private static DecimalFormat US_FORMAT = new DecimalFormat("0.####", new DecimalFormatSymbols(Locale.US));
+  private static DecimalFormat US_FORMAT =
+      new DecimalFormat("0.####", new DecimalFormatSymbols(Locale.US));
 
   public static String format(double value) {
     return US_FORMAT.format(value);
   }
-  
+
   /**
-   * default value iff attribute absent or empty string. Throws iff attribute value is a string that cannot be
-   * parsed.
+   * default value iff attribute absent or empty string. Throws iff attribute value is a string that
+   * cannot be parsed.
    */
   public static double getDouble(Element svgElement, String attributeName, double defaultValue)
       throws NumberFormatException {

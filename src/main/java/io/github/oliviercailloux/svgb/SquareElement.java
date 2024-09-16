@@ -1,11 +1,7 @@
 package io.github.oliviercailloux.svgb;
 
-import static com.google.common.base.Preconditions.checkArgument;
-
-import io.github.oliviercailloux.geometry.Displacement;
 import io.github.oliviercailloux.geometry.Point;
 import org.w3c.dom.Element;
-import org.w3c.dom.css.Rect;
 
 public class SquareElement {
   private final RectangleElement delegate;

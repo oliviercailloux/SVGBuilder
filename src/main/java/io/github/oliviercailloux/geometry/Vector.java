@@ -3,7 +3,7 @@ package io.github.oliviercailloux.geometry;
 public interface Vector {
   @SuppressWarnings({"checkstyle:MethodName"})
   double x();
-  
+
   @SuppressWarnings({"checkstyle:MethodName"})
   double y();
 

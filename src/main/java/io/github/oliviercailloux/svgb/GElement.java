@@ -24,7 +24,8 @@ public class GElement {
   }
 
   public GElement translate(Vector offset) {
-    element.setAttribute("transform", "translate(%s, %s)".formatted(SvgHelper.format(offset.x()), SvgHelper.format(offset.y())));
+    element.setAttribute("transform",
+        "translate(%s, %s)".formatted(SvgHelper.format(offset.x()), SvgHelper.format(offset.y())));
     return this;
   }
 }

@@ -30,5 +30,4 @@ public class StyleElement {
     this.content.setNodeValue(content);
     return this;
   }
-
 }
