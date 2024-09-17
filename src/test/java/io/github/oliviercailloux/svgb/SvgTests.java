@@ -57,13 +57,6 @@ public class SvgTests {
     assertEquals(expected, actual);
   }
 
-  private DecimalFormat usFmt(String pattern) {
-    return new DecimalFormat(pattern, new DecimalFormatSymbols(Locale.US));
-    // DecimalFormat fmt = (DecimalFormat) NumberFormat.getInstance(Locale.US);
-    // fmt.applyPattern(pattern);
-    // return fmt;
-  }
-
   @Test
   void testDrawingLine() throws Exception {
     DomHelper d = DomHelper.domHelper();

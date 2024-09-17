@@ -19,10 +19,22 @@ public class SvgDocumentHelper {
   public static final URI SVG_NS_URI = URI.create("http://www.w3.org/2000/svg");
   private static final String SVG_NS = SVG_NS_URI.toString();
 
+  /**
+   * Creates a new SVG DOM Document, containing only the SVG document element.
+   *
+   * @return a helper containing a new {@code Document} object with a document element having namespace
+   *         {@link #SVG_NS_URI} and name “{@code svg}”.
+   */
   public static SvgDocumentHelper usingNewDocument() {
     return using(DomHelper.domHelper());
   }
 
+  /**
+   * Creates a new SVG DOM Document, containing only the SVG document element.
+   *
+   * @return a helper containing a new {@code Document} object with a document element having namespace
+   *         {@link #SVG_NS_URI} and name “{@code svg}”.
+   */
   public static SvgDocumentHelper using(DomHelper helper) {
     return using(helper.createDocument(XmlName.expandedName(SVG_NS_URI, "svg").toQName()));
   }
