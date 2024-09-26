@@ -4,10 +4,13 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 import io.github.oliviercailloux.geometry.Point;
 import io.github.oliviercailloux.geometry.Zone;
+import io.github.oliviercailloux.jaris.xml.DomHelper;
+import io.github.oliviercailloux.jaris.xml.XmlName;
 import org.w3c.dom.Element;
 
 public class RectangleElement {
   public static final String NODE_NAME = "rect";
+  public static final XmlName XML_NAME = XmlName.expandedName(SvgDocumentHelper.SVG_NS_URI, NODE_NAME);
 
   private final Element element;
 
@@ -17,7 +20,7 @@ public class RectangleElement {
 
   private RectangleElement(Element rect) {
     element = rect;
-    checkArgument(rect.getNodeName().equals(NODE_NAME));
+    checkArgument(DomHelper.xmlName(rect).equals(XML_NAME));
   }
 
   public Element getElement() {

@@ -17,6 +17,7 @@ public class SvgDocumentHelper {
    * of SVG.”, https://svgwg.org/svg2-draft/struct.html
    */
   public static final URI SVG_NS_URI = URI.create("http://www.w3.org/2000/svg");
+  public static final XmlName SVG_ELEMENT_NAME = XmlName.expandedName(SVG_NS_URI, "svg");
   private static final String SVG_NS = SVG_NS_URI.toString();
 
   /**
@@ -36,7 +37,7 @@ public class SvgDocumentHelper {
    *         {@link #SVG_NS_URI} and name “{@code svg}”.
    */
   public static SvgDocumentHelper using(DomHelper helper) {
-    return using(helper.createDocument(XmlName.expandedName(SVG_NS_URI, "svg").toQName()));
+    return using(helper.createDocument(SVG_ELEMENT_NAME.toQName()));
   }
 
   public static SvgDocumentHelper using(Document document) {

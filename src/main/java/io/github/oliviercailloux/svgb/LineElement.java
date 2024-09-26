@@ -6,10 +6,13 @@ import static com.google.common.base.Verify.verify;
 
 import io.github.oliviercailloux.geometry.Point;
 import io.github.oliviercailloux.geometry.Zone;
+import io.github.oliviercailloux.jaris.xml.DomHelper;
+import io.github.oliviercailloux.jaris.xml.XmlName;
 import org.w3c.dom.Element;
 
 public class LineElement {
   public static final String NODE_NAME = "line";
+  public static final XmlName XML_NAME = XmlName.expandedName(SvgDocumentHelper.SVG_NS_URI, NODE_NAME);
 
   private final Element element;
 
@@ -19,7 +22,7 @@ public class LineElement {
 
   private LineElement(Element line) {
     element = line;
-    checkArgument(line.getNodeName().equals(NODE_NAME));
+    checkArgument(DomHelper.xmlName(line).equals(XML_NAME));
   }
 
   public Element getElement() {
