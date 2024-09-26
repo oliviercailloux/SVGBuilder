@@ -54,6 +54,7 @@ public record Displacement (double right, double down) implements Vector {
     return new Displacement(right * factor, down * factor);
   }
 
+  @Override
   public Displacement opposite() {
     return mult(-1d);
   }

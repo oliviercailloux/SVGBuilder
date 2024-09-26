@@ -3,7 +3,7 @@
 == Geometry
 For (zero, zero)-based coordinate systems.
 
-- A Vector corresponds to the well-known mathematical geometric entity and represents either a point (similar to an Instant) or a Displacement (similar to a Duration). It may be negative.
+- A Vector corresponds to the well-known mathematical geometric entity and represents either a point or a displacement. It may be negative. A point is to a displacement what an instant is to a duration.
 - A Point is a Vector that is positive. It is meant to represent a point in the coordinate system or a size.
 - A Displacement is a Vector that may be positive or negative (meaning that each of its coordinate can be). It should be used when planning to add it to a Point or another Displacement.
 - A Zone delimits a rectangular area in the coordinate system. It is caracterized by two Points, the top-left and the bottom-right corners, or equivalently, a Point and a Size, or equivalently, a Point and a Displacement. It corresponds to a localized instance of a vector.
@@ -49,6 +49,4 @@ There is no implementation!
 “https://www.javadoc.io/doc/org.apache.xmlgraphics/xmlgraphics-commons/latest/index.html[Apache XML Graphics Commons] is a library in which the two XML Graphics subprojects (Apache Batik and Apache FOP) extracted components which are used by both codebases”.
 
 Fails for https://www.javadoc.io/doc/org.apache.xmlgraphics/batik-all/latest/index.html[batik-all] or similar.
-
-== Vrac
 

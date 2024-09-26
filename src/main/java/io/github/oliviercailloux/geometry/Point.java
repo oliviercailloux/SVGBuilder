@@ -34,7 +34,7 @@ public record Point (double x, double y) implements Vector {
     checkArgument(y >= 0d);
   }
 
-  /** Only if the result is positive. */
+  /** Only if the result is non negative. */
   @Override
   public Point moveBy(Vector p) {
     return new Point(x + p.x(), y + p.y());
