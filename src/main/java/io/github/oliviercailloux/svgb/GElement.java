@@ -9,7 +9,8 @@ import org.w3c.dom.Element;
 
 public class GElement {
   public static final String NODE_NAME = "g";
-  public static final XmlName XML_NAME = XmlName.expandedName(SvgDocumentHelper.SVG_NS_URI, NODE_NAME);
+  public static final XmlName XML_NAME =
+      XmlName.expandedName(SvgDocumentHelper.SVG_NS_URI, NODE_NAME);
 
   private final Element element;
 

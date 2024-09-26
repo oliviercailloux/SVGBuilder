@@ -11,7 +11,8 @@ import org.w3c.dom.Text;
 
 public class TextElement {
   public static final String NODE_NAME = "text";
-  public static final XmlName XML_NAME = XmlName.expandedName(SvgDocumentHelper.SVG_NS_URI, NODE_NAME);
+  public static final XmlName XML_NAME =
+      XmlName.expandedName(SvgDocumentHelper.SVG_NS_URI, NODE_NAME);
 
   private final Element element;
   private final Text content;

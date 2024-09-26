@@ -23,8 +23,8 @@ public class SvgDocumentHelper {
   /**
    * Creates a new SVG DOM Document, containing only the SVG document element.
    *
-   * @return a helper containing a new {@code Document} object with a document element having namespace
-   *         {@link #SVG_NS_URI} and name “{@code svg}”.
+   * @return a helper containing a new {@code Document} object with a document element having
+   *         namespace {@link #SVG_NS_URI} and name “{@code svg}”.
    */
   public static SvgDocumentHelper usingNewDocument() {
     return using(DomHelper.domHelper());
@@ -33,8 +33,8 @@ public class SvgDocumentHelper {
   /**
    * Creates a new SVG DOM Document, containing only the SVG document element.
    *
-   * @return a helper containing a new {@code Document} object with a document element having namespace
-   *         {@link #SVG_NS_URI} and name “{@code svg}”.
+   * @return a helper containing a new {@code Document} object with a document element having
+   *         namespace {@link #SVG_NS_URI} and name “{@code svg}”.
    */
   public static SvgDocumentHelper using(DomHelper helper) {
     return using(helper.createDocument(SVG_ELEMENT_NAME.toQName()));
