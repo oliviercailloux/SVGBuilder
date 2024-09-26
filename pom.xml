@@ -7,7 +7,7 @@
     <version>0.0.22</version>
   </parent>
   <artifactId>svgb</artifactId>
-  <version>0.0.3-SNAPSHOT</version>
+  <version>0.0.3</version>
 
   <dependencies>
     <dependency>
