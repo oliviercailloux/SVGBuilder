@@ -38,7 +38,7 @@ public record Displacement (double right, double down) implements Vector {
   }
 
   @Override
-  public Displacement moveBy(Vector p) {
+  public Displacement plus(Vector p) {
     return new Displacement(right + p.x(), down + p.y());
   }
 

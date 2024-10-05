@@ -9,7 +9,7 @@ public class Zone {
 
   public static Zone centered(Point center, Point size) {
     Point semiSize = size.mult(0.5);
-    return new Zone(center.moveBy(semiSize.opposite()), center.moveBy(semiSize));
+    return new Zone(center.plus(semiSize.opposite()), center.plus(semiSize));
   }
 
   public static Zone at(Point... corners) {
@@ -21,7 +21,7 @@ public class Zone {
   }
 
   public static Zone cornerMove(Point corner, Displacement move) {
-    return Zone.at(corner, corner.moveBy(move));
+    return Zone.at(corner, corner.plus(move));
   }
 
   private final Point start;
@@ -43,7 +43,7 @@ public class Zone {
   }
 
   public Point size() {
-    return end.moveBy(start.opposite());
+    return end.plus(start.opposite());
   }
 
   public Point end() {
@@ -51,6 +51,6 @@ public class Zone {
   }
 
   public Point center() {
-    return start.moveBy(size().mult(0.5));
+    return start.plus(size().mult(0.5));
   }
 }

@@ -74,10 +74,10 @@ public class LineElement {
     checkArgument(!startSet || !destSet);
     if (!destSet) {
       Point start = getStart();
-      setDestination(start.moveBy(size));
+      setDestination(start.plus(size));
     } else {
       verify(!startSet);
-      setStart(getDestination().moveBy(size.opposite()));
+      setStart(getDestination().plus(size.opposite()));
     }
     return this;
   }

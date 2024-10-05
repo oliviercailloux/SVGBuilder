@@ -36,7 +36,7 @@ public record Point (double x, double y) implements Vector {
 
   /** Only if the result is non negative. */
   @Override
-  public Point moveBy(Vector p) {
+  public Point plus(Vector p) {
     return new Point(x + p.x(), y + p.y());
   }
 
