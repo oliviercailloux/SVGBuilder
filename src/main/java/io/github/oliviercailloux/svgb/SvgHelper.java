@@ -10,11 +10,12 @@ import java.util.Optional;
 import org.w3c.dom.Element;
 
 public class SvgHelper {
-  private static DecimalFormat US_FORMAT =
+  /** US format used for decimal numbers, max 4 decimal places */
+  public static DecimalFormat DECIMAL_FORMAT =
       new DecimalFormat("0.####", new DecimalFormatSymbols(Locale.US));
 
   public static String format(double value) {
-    return US_FORMAT.format(value);
+    return DECIMAL_FORMAT.format(value);
   }
 
   /**
