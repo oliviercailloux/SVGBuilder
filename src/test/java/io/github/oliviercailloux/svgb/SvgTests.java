@@ -10,10 +10,6 @@ import io.github.oliviercailloux.geometry.Point;
 import io.github.oliviercailloux.geometry.Zone;
 import io.github.oliviercailloux.jaris.xml.DomHelper;
 import java.nio.charset.StandardCharsets;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
-import java.util.Locale;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +34,33 @@ public class SvgTests {
     // Files.writeString(Path.of("out.svg"), actual);
     String expected =
         Resources.toString(SvgTests.class.getResource("Ellipse.svg"), StandardCharsets.UTF_8);
+    assertEquals(expected, actual);
+  }
+
+  @Test
+  void testRectangles() throws Exception {
+    DomHelper d = DomHelper.domHelper();
+    SvgDocumentHelper h = SvgDocumentHelper.using(d);
+    Zone zone1 = Zone.cornerMove(Point.origin(), Displacement.allDirections(200));
+    {
+      Element e = h.rectangle(zone1).getElement();
+      h.document().getDocumentElement().appendChild(e);
+    }
+    Zone zone2 = Zone.cornerMove(zone1.end(), Displacement.allDirections(100));
+    {
+      Element e = h.rectangle(zone2).getElement();
+      h.document().getDocumentElement().appendChild(e);
+    }
+    Zone zone3 = Zone.cornerMove(zone2.end(), Displacement.allDirections(50));
+    {
+      Element e = h.rectangle(zone3).getElement();
+      h.document().getDocumentElement().appendChild(e);
+    }
+
+    String actual = d.toString(h.document());
+    // Files.writeString(Path.of("out.svg"), actual);
+    String expected =
+        Resources.toString(SvgTests.class.getResource("Rectangles.svg"), StandardCharsets.UTF_8);
     assertEquals(expected, actual);
   }
 
