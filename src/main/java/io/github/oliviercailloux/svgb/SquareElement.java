@@ -14,8 +14,8 @@ public class SquareElement {
     this.delegate = delegate;
   }
 
-  public Element getElement() {
-    return delegate.getElement();
+  public Element element() {
+    return delegate.element();
   }
 
   public SquareElement setStart(Point start) {

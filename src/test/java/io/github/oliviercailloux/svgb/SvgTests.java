@@ -43,17 +43,17 @@ public class SvgTests {
     SvgDocumentHelper h = SvgDocumentHelper.using(d);
     Zone zone1 = Zone.cornerMove(Point.origin(), Displacement.allDirections(200));
     {
-      Element e = h.rectangle(zone1).getElement();
+      Element e = h.rectangle(zone1).element();
       h.document().getDocumentElement().appendChild(e);
     }
     Zone zone2 = Zone.cornerMove(zone1.end(), Displacement.allDirections(100));
     {
-      Element e = h.rectangle(zone2).getElement();
+      Element e = h.rectangle(zone2).element();
       h.document().getDocumentElement().appendChild(e);
     }
     Zone zone3 = Zone.cornerMove(zone2.end(), Displacement.allDirections(50));
     {
-      Element e = h.rectangle(zone3).getElement();
+      Element e = h.rectangle(zone3).element();
       h.document().getDocumentElement().appendChild(e);
     }
 
@@ -96,7 +96,7 @@ public class SvgTests {
      */
     LineElement line = h.line(Zone.cornerMove(start, Displacement.given(50d * dpi / 2.54d, 0d)))
         .setStroke("black");
-    h.document().getDocumentElement().appendChild(line.getElement());
+    h.document().getDocumentElement().appendChild(line.element());
 
     String actual = d.toString(h.document());
     String expected =
@@ -119,12 +119,12 @@ public class SvgTests {
         }
         """);
     Document doc = h.document();
-    doc.getDocumentElement().appendChild(style.getElement());
+    doc.getDocumentElement().appendChild(style.element());
     RectangleElement rect =
         h.rectangle(Zone.cornerMove(Point.origin(), Displacement.allDirections(100)));
-    doc.getDocumentElement().appendChild(rect.getElement());
+    doc.getDocumentElement().appendChild(rect.element());
     TextElement text = h.text().setBaselineStart(Point.given(50d, 50d)).setContent("Hello");
-    doc.getDocumentElement().appendChild(text.getElement());
+    doc.getDocumentElement().appendChild(text.element());
 
     String actual = d.toString(doc);
     // Files.writeString(Path.of("out.svg"), actual);

@@ -26,7 +26,7 @@ public class StyleElement {
     checkArgument(DomHelper.xmlName(text).equals(XML_NAME));
   }
 
-  public Element getElement() {
+  public Element element() {
     return element;
   }
 

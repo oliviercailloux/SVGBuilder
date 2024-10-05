@@ -25,7 +25,7 @@ public class RectangleElement {
     checkArgument(DomHelper.xmlName(rect).equals(XML_NAME));
   }
 
-  public Element getElement() {
+  public Element element() {
     return element;
   }
 

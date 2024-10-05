@@ -26,7 +26,7 @@ public class LineElement {
     checkArgument(DomHelper.xmlName(line).equals(XML_NAME));
   }
 
-  public Element getElement() {
+  public Element element() {
     return element;
   }
 
