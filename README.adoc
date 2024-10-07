@@ -17,6 +17,8 @@ https://gamedev.stackexchange.com/questions/44314/do-i-need-a-point-and-a-vector
 From https://stackoverflow.com/q/26088839/: “ Asking if a browser supports SVG 2 is like asking if a browser supports HTML5. It seems like a totally reasonable question, but it doesn't work like that. The best we can do is test if a browser supports a feature, rather than a version of spec. ” Jan 2016: “Browsers are implementing individual features as the spec stabilizes and interest exists, they are not waiting to implement "SVG 2" all at once.” https://github.com/Fyrd/caniuse/issues/1143 Nov 2016: “SVG 2 is on life support.” http://tavmjong.free.fr/svg2_status.html May 2018: “After a near death experience, SVG 2 is back.”, https://www.patreon.com/posts/svg-2-status-19078074, Tavmjong Bah Sep 2022: “It seems chromium suppports ~40-50% of SVG 2 which is huge and enable many impacting usecases.” https://github.com/Fyrd/caniuse/issues/1143#issuecomment-1233975910 Jan 2023: some features of SVG 2 work, but nobody seem to know which ones. https://cloudfour.com/thinks/so-you-can-set-an-svg-circles-radius-in-css/ March 2023: https://svgwg.org/svg2-draft/ (but the three commits of 2023 are one line each, https://github.com/w3c/svgwg/commits/main/) https://github.com/Fyrd/caniuse/issues/1143 We follow MDN (eg do not use version and baseProfile attributes, “Both version and baseProfile attributes are deprecated in SVG 2”, https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Getting_Started).
 
 == TODO
+Size should be a Displacement that is also non negative.
+
 Implement SVG1 DOM and https://svgwg.org/svg2-draft/types.html#InterfaceSVGElement[SVG2 DOM] and in particular getBBox.
 
 == Batik and SVG DOM 1.0

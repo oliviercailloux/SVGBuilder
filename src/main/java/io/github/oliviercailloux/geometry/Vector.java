@@ -7,6 +7,9 @@ public interface Vector {
   @SuppressWarnings({"checkstyle:MethodName"})
   double y();
 
+  /** The displacement which, added to this vector, yields the origin. */
+  Displacement opposite();
+
   Vector plus(Vector p);
 
   /** Equivalent to <code>plus(p.opposite())</code>. */
@@ -14,6 +17,6 @@ public interface Vector {
     return plus(p.opposite());
   }
 
-  /** The displacement which, added to this vector, yields the origin. */
-  Displacement opposite();
+  Vector mult(double factor);
+  Vector mult(double factorX, double factorY);
 }

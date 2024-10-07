@@ -86,7 +86,7 @@ public class SvgDocumentHelper {
 
   public RectangleElement rectangle(Zone zone) {
     final Element rect = document.createElementNS(SVG_NS, RectangleElement.NODE_NAME);
-    return RectangleElement.using(rect).setStart(zone.start()).setSize(zone.size());
+    return RectangleElement.using(rect).setZone(zone);
   }
 
   public TextElement text() {

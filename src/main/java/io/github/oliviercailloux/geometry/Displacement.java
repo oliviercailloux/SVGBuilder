@@ -37,6 +37,14 @@ public record Displacement (double right, double down) implements Vector {
     return down;
   }
 
+  public Displacement horizontal() {
+    return Displacement.horizontal(right);
+  }
+
+  public Displacement vertical() {
+    return Displacement.vertical(down);
+  }
+
   @Override
   public Displacement plus(Vector p) {
     return new Displacement(right + p.x(), down + p.y());
@@ -50,8 +58,14 @@ public record Displacement (double right, double down) implements Vector {
     return new Displacement(Math.max(right, p.right()), Math.max(down, p.down()));
   }
 
+  @Override
   public Displacement mult(double factor) {
-    return new Displacement(right * factor, down * factor);
+    return mult(factor, factor);
+  }
+  
+  @Override
+  public Displacement mult(double factorX, double factorY) {
+    return new Displacement(right * factorX, down * factorY);
   }
 
   @Override

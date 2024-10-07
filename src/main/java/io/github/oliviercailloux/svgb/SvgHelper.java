@@ -3,6 +3,8 @@ package io.github.oliviercailloux.svgb;
 import static com.google.common.base.Verify.verify;
 
 import io.github.oliviercailloux.geometry.Point;
+import io.github.oliviercailloux.geometry.Zone;
+import io.github.oliviercailloux.jaris.xml.DomHelper;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
@@ -70,8 +72,20 @@ public class SvgHelper {
   }
 
   public static Element setSize(Element svgElement, Point size) {
-    svgElement.setAttribute("width", format(size.x()));
-    svgElement.setAttribute("height", format(size.y()));
+    if (DomHelper.xmlName(svgElement).equals(RectangleElement.XML_NAME)
+        && size.equals(Point.origin())) {
+      svgElement.removeAttribute("width");
+      svgElement.removeAttribute("height");
+    } else {
+      svgElement.setAttribute("width", format(size.x()));
+      svgElement.setAttribute("height", format(size.y()));
+    }
+    return svgElement;
+  }
+
+  public static Element setZone(Element svgElement, Zone zone) {
+    setPosition(svgElement, zone.start());
+    setSize(svgElement, zone.size());
     return svgElement;
   }
 

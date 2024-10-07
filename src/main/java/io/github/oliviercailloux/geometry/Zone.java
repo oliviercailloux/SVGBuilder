@@ -38,12 +38,13 @@ public class Zone {
     return start;
   }
 
+  /** Size as a displacement. */
   public Displacement across() {
     return Displacement.between(start, end);
   }
 
   public Point size() {
-    return end.plus(start.opposite());
+    return end.minus(start);
   }
 
   public Point end() {
@@ -52,5 +53,10 @@ public class Zone {
 
   public Point center() {
     return start.plus(size().mult(0.5));
+  }
+
+  /** Only if the resulting upper left corner is non negative */
+  public Zone plus(Displacement move) {
+    return new Zone(start.plus(move), end.plus(move));
   }
 }

@@ -49,23 +49,8 @@ public class RectangleElement {
     return SvgHelper.getDouble(element, "height", 0d);
   }
 
-  public RectangleElement across(Zone zone) {
-    return setStart(zone.start()).setSize(zone.size());
-  }
-
-  public RectangleElement setStart(Point start) {
-    SvgHelper.setPosition(element, start);
-    return this;
-  }
-
-  public RectangleElement setSize(Point size) {
-    if (size.equals(Point.origin())) {
-      element.removeAttribute("width");
-      element.removeAttribute("height");
-    } else {
-      element.setAttribute("width", SvgHelper.format(size.x()));
-      element.setAttribute("height", SvgHelper.format(size.y()));
-    }
+  public RectangleElement setZone(Zone zone) {
+    SvgHelper.setZone(element, zone);
     return this;
   }
 

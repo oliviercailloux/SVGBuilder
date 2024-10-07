@@ -40,10 +40,23 @@ public record Point (double x, double y) implements Vector {
     return new Point(x + p.x(), y + p.y());
   }
 
+  /** Only if the result is non negative. */
+  @Override
+  public Point minus(Vector p) {
+    return new Point(x - p.x(), y - p.y());
+  }
+
   /** A positive scaling factor */
+  @Override
   public Point mult(double scale) {
-    checkArgument(scale >= 0d);
-    return new Point(x * scale, y * scale);
+    return mult(scale, scale);
+  }
+
+  @Override
+  public Point mult(double scaleX, double scaleY) {
+    checkArgument(scaleX >= 0d);
+    checkArgument(scaleY >= 0d);
+    return new Point(x * scaleX, y * scaleY);
   }
 
   @Override

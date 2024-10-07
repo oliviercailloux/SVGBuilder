@@ -1,6 +1,8 @@
 package io.github.oliviercailloux.svgb;
 
+import io.github.oliviercailloux.geometry.Displacement;
 import io.github.oliviercailloux.geometry.Point;
+import io.github.oliviercailloux.geometry.Zone;
 import org.w3c.dom.Element;
 
 public class SquareElement {
@@ -19,12 +21,12 @@ public class SquareElement {
   }
 
   public SquareElement setStart(Point start) {
-    delegate.setStart(start);
+    delegate.setZone(Zone.cornerMove(start, delegate.zone().across()));
     return this;
   }
-
+  
   public SquareElement setSize(double size) {
-    delegate.setSize(Point.given(size, size));
+    delegate.setZone(Zone.cornerMove(delegate.zone().start(), Displacement.allDirections(size)));
     return this;
   }
 
