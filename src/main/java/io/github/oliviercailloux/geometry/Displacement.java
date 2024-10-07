@@ -1,6 +1,7 @@
 package io.github.oliviercailloux.geometry;
 
 /** Positive or negative. */
+@SuppressWarnings("checkstyle:OverloadMethodsDeclarationOrder")
 public record Displacement (double right, double down) implements Vector {
 
   public static Displacement noMove() {
