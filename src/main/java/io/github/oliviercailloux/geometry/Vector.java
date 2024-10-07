@@ -10,6 +10,7 @@ public interface Vector {
   /** The displacement which, added to this vector, yields the origin. */
   Displacement opposite();
 
+  /** Returns the addition of this vector and the given one, if the result is non-negative. */
   Vector plus(Vector p);
 
   /** Equivalent to <code>plus(p.opposite())</code>. */
@@ -18,5 +19,10 @@ public interface Vector {
   }
 
   Vector mult(double factor);
+
   Vector mult(double factorX, double factorY);
+
+  default String coordinates() {
+    return "(" + String.valueOf(x()) + ", " + String.valueOf(y()) + ")";
+  }
 }
