@@ -7,6 +7,10 @@ public interface Vector {
   @SuppressWarnings({"checkstyle:MethodName"})
   double y();
 
+  Vector horizontal();
+
+  Vector vertical();
+
   /** The displacement which, added to this vector, yields the origin. */
   Displacement opposite();
 

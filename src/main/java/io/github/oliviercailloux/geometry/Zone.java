@@ -8,12 +8,16 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 public class Zone {
+  public static Zone cornered(Point corner, Vector move) {
+    return new Zone(corner, corner.plus(move));
+  }
+  
   public static Zone centered(Point center, Point size) {
     Point semiSize = size.mult(0.5);
     return new Zone(center.plus(semiSize.opposite()), center.plus(semiSize));
   }
 
-  public static Zone at(Point... corners) {
+  public static Zone enclosing(Point... corners) {
     Range<Double> xs = Range.encloseAll(Stream.of(corners).mapToDouble(Point::x)::iterator);
     Range<Double> ys = Range.encloseAll(Stream.of(corners).mapToDouble(Point::y)::iterator);
     Point start = Point.given(xs.lowerEndpoint(), ys.lowerEndpoint());
@@ -21,14 +25,15 @@ public class Zone {
     return new Zone(start, end);
   }
 
-  public static Zone cornerMove(Point corner, Displacement move) {
-    return Zone.at(corner, corner.plus(move));
+  @SuppressWarnings("unused")
+  private static Zone cornerMove(Point corner, Displacement move) {
+    return Zone.enclosing(corner, corner.plus(move));
   }
 
   private final Point start;
   private final Point end;
 
-  public Zone(Point start, Point end) {
+  private Zone(Point start, Point end) {
     checkArgument(start.x() <= end.x());
     checkArgument(start.y() <= end.y());
     this.start = start;
@@ -40,7 +45,8 @@ public class Zone {
   }
 
   /** Size as a displacement. */
-  public Displacement across() {
+  @SuppressWarnings("unused")
+  private Displacement across() {
     return Displacement.between(start, end);
   }
 
@@ -57,7 +63,7 @@ public class Zone {
   }
 
   /** Only if the resulting upper left corner is non negative */
-  public Zone plus(Displacement move) {
+  public Zone move(Vector move) {
     return new Zone(start.plus(move), end.plus(move));
   }
 

@@ -27,7 +27,7 @@ public class SvgTests {
   void testEllipse() throws Exception {
     DomHelper d = DomHelper.domHelper();
     SvgDocumentHelper h = SvgDocumentHelper.using(d);
-    Element e = h.ellipse(Zone.cornerMove(Point.origin(), Displacement.allDirections(200)));
+    Element e = h.ellipse(Zone.cornered(Point.origin(), Point.square(200)));
     h.document().getDocumentElement().appendChild(e);
 
     String actual = d.toString(h.document());
@@ -41,17 +41,17 @@ public class SvgTests {
   void testRectangles() throws Exception {
     DomHelper d = DomHelper.domHelper();
     SvgDocumentHelper h = SvgDocumentHelper.using(d);
-    Zone zone1 = Zone.cornerMove(Point.origin(), Displacement.allDirections(200));
+    Zone zone1 = Zone.cornered(Point.origin(), Point.square(200));
     {
       Element e = h.rectangle(zone1).element();
       h.document().getDocumentElement().appendChild(e);
     }
-    Zone zone2 = Zone.cornerMove(zone1.end(), Displacement.allDirections(100));
+    Zone zone2 = Zone.cornered(zone1.end(), Point.square(100));
     {
       Element e = h.rectangle(zone2).element();
       h.document().getDocumentElement().appendChild(e);
     }
-    Zone zone3 = Zone.cornerMove(zone2.end(), Displacement.allDirections(50));
+    Zone zone3 = Zone.cornered(zone2.end(), Point.square(50));
     {
       Element e = h.rectangle(zone3).element();
       h.document().getDocumentElement().appendChild(e);
@@ -71,7 +71,7 @@ public class SvgTests {
     SvgHelper.setSize(h.document().getDocumentElement(), Point.square(500));
     Element g = h.g().translate(Point.square(200)).getElement();
     h.document().getDocumentElement().appendChild(g);
-    Element e = h.ellipse(Zone.cornerMove(Point.square(50), Displacement.allDirections(100)));
+    Element e = h.ellipse(Zone.cornered(Point.square(50), Point.square(100)));
     g.appendChild(e);
 
     String actual = d.toString(h.document());
@@ -94,7 +94,7 @@ public class SvgTests {
      * In Firefox, this line seems to measure about 50 cm indeed (up to my measurement
      * approximation, about ± 2 mm)
      */
-    LineElement line = h.line(Zone.cornerMove(start, Displacement.given(50d * dpi / 2.54d, 0d)))
+    LineElement line = h.line(Zone.cornered(start, Point.given(50d * dpi / 2.54d, 0d)))
         .setStroke("black");
     h.document().getDocumentElement().appendChild(line.element());
 
@@ -121,7 +121,7 @@ public class SvgTests {
     Document doc = h.document();
     doc.getDocumentElement().appendChild(style.element());
     RectangleElement rect =
-        h.rectangle(Zone.cornerMove(Point.origin(), Displacement.allDirections(100)));
+        h.rectangle(Zone.cornered(Point.origin(), Point.square(100)));
     doc.getDocumentElement().appendChild(rect.element());
     TextElement text = h.text().setBaselineStart(Point.given(50d, 50d)).setContent("Hello");
     doc.getDocumentElement().appendChild(text.element());

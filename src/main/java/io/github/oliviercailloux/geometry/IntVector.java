@@ -1,6 +1,6 @@
 package io.github.oliviercailloux.geometry;
 
-public interface IntVector {
+interface IntVector {
   @SuppressWarnings({"checkstyle:MethodName"})
   int x();
 

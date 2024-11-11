@@ -3,7 +3,7 @@ package io.github.oliviercailloux.geometry;
 import static com.google.common.base.Preconditions.checkArgument;
 
 /** Or size */
-public record IntPoint (int x, int y) implements IntVector {
+record IntPoint (int x, int y) implements IntVector {
 
   public static IntPoint origin() {
     return new IntPoint(0, 0);

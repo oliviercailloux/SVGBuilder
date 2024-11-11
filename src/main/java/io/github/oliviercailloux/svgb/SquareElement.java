@@ -1,6 +1,5 @@
 package io.github.oliviercailloux.svgb;
 
-import io.github.oliviercailloux.geometry.Displacement;
 import io.github.oliviercailloux.geometry.Point;
 import io.github.oliviercailloux.geometry.Zone;
 import org.w3c.dom.Element;
@@ -20,13 +19,14 @@ public class SquareElement {
     return delegate.element();
   }
 
+  /** Changes the start but not the size, thus, both start and end move (unless the given start equals the current start). */
   public SquareElement setStart(Point start) {
-    delegate.setZone(Zone.cornerMove(start, delegate.zone().across()));
+    delegate.setZone(Zone.cornered(start, delegate.zone().size()));
     return this;
   }
   
   public SquareElement setSize(double size) {
-    delegate.setZone(Zone.cornerMove(delegate.zone().start(), Displacement.allDirections(size)));
+    delegate.setZone(Zone.cornered(delegate.zone().start(), Point.square(size)));
     return this;
   }
 

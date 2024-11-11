@@ -37,6 +37,16 @@ public record Point (double x, double y) implements Vector {
     checkArgument(y >= 0d);
   }
 
+  @Override
+  public Point horizontal() {
+    return Point.horizontal(x);
+  }
+
+  @Override
+  public Point vertical() {
+    return Point.vertical(y);
+  }
+
   /** Only if the result is non negative. */
   @Override
   public Point plus(Vector p) {
@@ -65,24 +75,5 @@ public record Point (double x, double y) implements Vector {
   @Override
   public Displacement opposite() {
     return Displacement.between(this, Point.origin());
-  }
-
-  @Override
-  public boolean equals(Object o2) {
-    if (!(o2 instanceof Point)) {
-      return false;
-    }
-    final Point t2 = (Point) o2;
-    return x == t2.x && y == t2.y;
-  }
-  
-  @Override
-  public int hashCode() {
-    return Objects.hash(x, y);
-  }
-  
-  @Override
-  public String toString() {
-    return MoreObjects.toStringHelper(this).add("x", x).add("y", y).toString();
   }
 }
