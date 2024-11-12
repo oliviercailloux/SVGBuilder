@@ -12,6 +12,7 @@ public class Zone {
     return new Zone(singular, singular);
   }
 
+  @SuppressWarnings("unused")
   private static Zone cornered(Point corner, Vector move) {
     return new Zone(corner, corner.plus(move));
   }
