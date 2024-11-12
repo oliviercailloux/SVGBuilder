@@ -58,7 +58,7 @@ public class RectangleElement {
   }
 
   public Zone zone() {
-    return Zone.cornered(start(), size());
+    return Zone.at(start()).extend(size());
   }
 
   public RectangleElement setZone(Zone zone) {

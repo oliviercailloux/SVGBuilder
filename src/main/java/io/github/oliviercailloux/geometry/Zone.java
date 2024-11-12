@@ -8,16 +8,20 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 public class Zone {
-  public static Zone cornered(Point corner, Vector move) {
+  public static Zone at(Point singular) {
+    return new Zone(singular, singular);
+  }
+
+  private static Zone cornered(Point corner, Vector move) {
     return new Zone(corner, corner.plus(move));
   }
   
-  public static Zone centered(Point center, Point size) {
+  private static Zone centered(Point center, Point size) {
     Point semiSize = size.mult(0.5);
     return new Zone(center.plus(semiSize.opposite()), center.plus(semiSize));
   }
 
-  public static Zone enclosing(Point... corners) {
+  private static Zone enclosingStatic(Point... corners) {
     Range<Double> xs = Range.encloseAll(Stream.of(corners).mapToDouble(Point::x)::iterator);
     Range<Double> ys = Range.encloseAll(Stream.of(corners).mapToDouble(Point::y)::iterator);
     Point start = Point.given(xs.lowerEndpoint(), ys.lowerEndpoint());
@@ -27,7 +31,7 @@ public class Zone {
 
   @SuppressWarnings("unused")
   private static Zone cornerMove(Point corner, Displacement move) {
-    return Zone.enclosing(corner, corner.plus(move));
+    return Zone.enclosingStatic(corner, corner.plus(move));
   }
 
   private final Point start;
@@ -65,6 +69,24 @@ public class Zone {
   /** Only if the resulting upper left corner is non negative */
   public Zone move(Vector move) {
     return new Zone(start.plus(move), end.plus(move));
+  }
+
+  public Zone sizeCentered(Point newSize) {
+    return Zone.centered(center(), newSize);
+  }
+
+  /** Moves the bottom right corner iff given extension is positive, moves the upper left corner iff given extension is negative. Equivalently, the smallest zone that encloses each of its current corners and each of its current corners plus the given extension. */
+  public Zone extend(Vector extension) {
+    return Zone.enclosingStatic(start, end, start.plus(extension), end.plus(extension));
+  }
+
+  public Zone enclosing(Point... corners) {
+    return Zone.enclosingStatic(Stream.concat(Stream.of(corners), Stream.of(start, end)).toArray(Point[]::new));
+  }
+
+  /** Mainly conceived as a debug string, more compact (but less explicit) than toString(). */
+  public String coordinates() {
+    return start.coordinates() + " → " + end.coordinates();
   }
 
   @Override

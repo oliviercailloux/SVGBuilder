@@ -21,12 +21,12 @@ public class SquareElement {
 
   /** Changes the start but not the size, thus, both start and end move (unless the given start equals the current start). */
   public SquareElement setStart(Point start) {
-    delegate.setZone(Zone.cornered(start, delegate.zone().size()));
+    delegate.setZone(Zone.at(start).extend(delegate.zone().size()));
     return this;
   }
   
   public SquareElement setSize(double size) {
-    delegate.setZone(Zone.cornered(delegate.zone().start(), Point.square(size)));
+    delegate.setZone(Zone.at(delegate.zone().start()).extend(Point.square(size)));
     return this;
   }
 
