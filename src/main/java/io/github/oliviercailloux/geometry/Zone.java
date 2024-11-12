@@ -16,7 +16,7 @@ public class Zone {
   private static Zone cornered(Point corner, Vector move) {
     return new Zone(corner, corner.plus(move));
   }
-  
+
   private static Zone centered(Point center, Point size) {
     Point semiSize = size.mult(0.5);
     return new Zone(center.plus(semiSize.opposite()), center.plus(semiSize));
@@ -67,7 +67,7 @@ public class Zone {
     return start.plus(size().mult(0.5));
   }
 
-  /** Only if the resulting upper left corner is non negative */
+  /** Only if the resulting upper left corner is non negative. */
   public Zone move(Vector move) {
     return new Zone(start.plus(move), end.plus(move));
   }
@@ -76,13 +76,18 @@ public class Zone {
     return Zone.centered(center(), newSize);
   }
 
-  /** Moves the bottom right corner iff given extension is positive, moves the upper left corner iff given extension is negative. Equivalently, the smallest zone that encloses each of its current corners and each of its current corners plus the given extension. */
+  /**
+   * Moves the bottom right corner iff given extension is positive, moves the upper left corner iff
+   * given extension is negative. Equivalently, the smallest zone that encloses each of its current
+   * corners and each of its current corners plus the given extension.
+   */
   public Zone extend(Vector extension) {
     return Zone.enclosingStatic(start, end, start.plus(extension), end.plus(extension));
   }
 
   public Zone enclosing(Point... corners) {
-    return Zone.enclosingStatic(Stream.concat(Stream.of(corners), Stream.of(start, end)).toArray(Point[]::new));
+    return Zone.enclosingStatic(
+        Stream.concat(Stream.of(corners), Stream.of(start, end)).toArray(Point[]::new));
   }
 
   /** Mainly conceived as a debug string, more compact (but less explicit) than toString(). */

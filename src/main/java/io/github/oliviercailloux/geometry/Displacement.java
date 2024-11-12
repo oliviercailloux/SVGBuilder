@@ -3,9 +3,10 @@ package io.github.oliviercailloux.geometry;
 import com.google.common.base.MoreObjects;
 import java.util.Objects;
 
-/** Positive or negative. 
- * Note that (I think that) there is no reason to request a Displacement as a parameter to a method, rather accept a Vector.
-*/
+/**
+ * Positive or negative. Note that (I think that) there is no reason to request a Displacement as a
+ * parameter to a method, rather accept a Vector.
+ */
 @SuppressWarnings("checkstyle:OverloadMethodsDeclarationOrder")
 public record Displacement (double right, double down) implements Vector {
 
@@ -47,7 +48,7 @@ public record Displacement (double right, double down) implements Vector {
   public Displacement horizontal() {
     return Displacement.horizontal(right);
   }
-  
+
   @Override
   public Displacement vertical() {
     return Displacement.vertical(down);

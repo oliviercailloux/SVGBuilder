@@ -6,6 +6,7 @@ import com.google.common.base.MoreObjects;
 import java.util.Objects;
 
 /** Or size */
+@SuppressWarnings("checkstyle:OverloadMethodsDeclarationOrder")
 public record Point (double x, double y) implements Vector {
 
   public static Point origin() {
