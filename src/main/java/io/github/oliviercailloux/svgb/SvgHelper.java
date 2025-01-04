@@ -1,5 +1,6 @@
 package io.github.oliviercailloux.svgb;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Verify.verify;
 
 import io.github.oliviercailloux.geometry.Point;
@@ -9,6 +10,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.Set;
 import org.w3c.dom.Element;
 
 public class SvgHelper {
@@ -37,6 +39,17 @@ public class SvgHelper {
     double x = getDouble(svgElement, "x", 0d);
     double y = getDouble(svgElement, "y", 0d);
     return Point.given(x, y);
+  }
+
+  public static Element setClasses(Element svgElement, Set<String> classes) {
+    checkArgument(classes.stream().noneMatch(s -> s.contains(" ")),
+        "No class should contain a space.");
+    if (classes.isEmpty()) {
+      svgElement.removeAttribute("class");
+    } else {
+      svgElement.setAttribute("class", String.join(" ", classes));
+    }
+    return svgElement;
   }
 
   public static Element setPosition(Element svgElement, Point point) {
