@@ -8,6 +8,10 @@
   </parent>
   <artifactId>svgb</artifactId>
   <version>0.0.7-SNAPSHOT</version>
+  <name>SVG Builder</name>
+  <properties>
+    <github-repository>${project.name}</github-repository>
+  </properties>
 
   <dependencies>
     <dependency>
