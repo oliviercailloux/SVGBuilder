@@ -7,7 +7,7 @@
     <version>0.0.27</version>
   </parent>
   <artifactId>svgb</artifactId>
-  <version>0.0.7-SNAPSHOT</version>
+  <version>0.0.7</version>
   <name>SVG Builder</name>
   <properties>
     <github-repository>${project.name}</github-repository>
