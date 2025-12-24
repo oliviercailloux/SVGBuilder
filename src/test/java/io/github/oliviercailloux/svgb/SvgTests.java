@@ -7,6 +7,7 @@ import com.google.common.io.Resources;
 import com.google.common.math.DoubleMath;
 import io.github.oliviercailloux.geometry.Displacement;
 import io.github.oliviercailloux.geometry.Point;
+import io.github.oliviercailloux.geometry.Size;
 import io.github.oliviercailloux.geometry.Zone;
 import io.github.oliviercailloux.jaris.xml.DomHelper;
 import java.nio.charset.StandardCharsets;
@@ -68,10 +69,10 @@ public class SvgTests {
   void testG() throws Exception {
     DomHelper d = DomHelper.domHelper();
     SvgDocumentHelper h = SvgDocumentHelper.using(d);
-    SvgHelper.setSize(h.document().getDocumentElement(), Displacement.allDirections(500));
+    SvgHelper.setSize(h.document().getDocumentElement(), Size.square(500));
     Element g = h.g().translate(Displacement.allDirections(200)).getElement();
     h.document().getDocumentElement().appendChild(g);
-    Element e = h.ellipse(Zone.at(Point.square(50)).extend(Displacement.allDirections(100)));
+    Element e = h.ellipse(Zone.at(Point.given(50d, 50d)).extend(Displacement.allDirections(100)));
     g.appendChild(e);
 
     String actual = d.toString(h.document());

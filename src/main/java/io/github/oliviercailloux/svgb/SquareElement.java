@@ -25,7 +25,7 @@ public class SquareElement {
    * equals the current start).
    */
   public SquareElement setStart(Point start) {
-    delegate.setZone(Zone.at(start).extend(delegate.zone().size()));
+    delegate.setZone(Zone.at(start).resizedFixedCenter(delegate.zone().size()));
     return this;
   }
 

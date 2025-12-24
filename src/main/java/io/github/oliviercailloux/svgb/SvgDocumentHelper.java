@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import io.github.oliviercailloux.geometry.Displacement;
 import io.github.oliviercailloux.geometry.Point;
+import io.github.oliviercailloux.geometry.Size;
 import io.github.oliviercailloux.geometry.Zone;
 import io.github.oliviercailloux.jaris.xml.DomHelper;
 import io.github.oliviercailloux.jaris.xml.XmlName;
@@ -66,7 +67,7 @@ public class SvgDocumentHelper {
     }
   }
 
-  public void setSize(Displacement size) {
+  public void setSize(Size size) {
     SvgHelper.setSize(root, size);
   }
 
@@ -111,9 +112,9 @@ public class SvgDocumentHelper {
       ell.setAttribute("cx", SvgHelper.format(center.x()));
       ell.setAttribute("cy", SvgHelper.format(center.y()));
     }
-    final Displacement semiSize = zone.size().mult(0.5);
-    ell.setAttribute("rx", SvgHelper.format(semiSize.right()));
-    ell.setAttribute("ry", SvgHelper.format(semiSize.down()));
+    final Size semiSize = zone.size().mult(0.5);
+    ell.setAttribute("rx", SvgHelper.format(semiSize.width()));
+    ell.setAttribute("ry", SvgHelper.format(semiSize.height()));
     return ell;
   }
 

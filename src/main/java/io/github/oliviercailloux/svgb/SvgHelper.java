@@ -5,6 +5,7 @@ import static com.google.common.base.Verify.verify;
 
 import io.github.oliviercailloux.geometry.Displacement;
 import io.github.oliviercailloux.geometry.Point;
+import io.github.oliviercailloux.geometry.Size;
 import io.github.oliviercailloux.geometry.Zone;
 import io.github.oliviercailloux.jaris.xml.DomHelper;
 import java.text.DecimalFormat;
@@ -70,7 +71,7 @@ public class SvgHelper {
    * direction attribute value is a string that cannot be parsed. Throws iff one is absent or empty
    * and the other one can be parsed.
    */
-  public static Optional<Point> tryGetSize(Element svgElement) throws NumberFormatException {
+  public static Optional<Size> tryGetSize(Element svgElement) throws NumberFormatException {
     double width = getDouble(svgElement, "width", Double.NaN);
     double height = getDouble(svgElement, "height", Double.NaN);
     if (Double.isNaN(width) != Double.isNaN(height)) {
@@ -82,17 +83,17 @@ public class SvgHelper {
     }
     verify(!Double.isNaN(width));
     verify(!Double.isNaN(height));
-    return Optional.of(Point.given(width, height));
+    return Optional.of(Size.given(width, height));
   }
 
-  public static Element setSize(Element svgElement, Displacement size) {
+  public static Element setSize(Element svgElement, Size size) {
     if (DomHelper.xmlName(svgElement).equals(RectangleElement.XML_NAME)
         && size.equals(Point.origin())) {
       svgElement.removeAttribute("width");
       svgElement.removeAttribute("height");
     } else {
-      svgElement.setAttribute("width", format(size.right()));
-      svgElement.setAttribute("height", format(size.down()));
+      svgElement.setAttribute("width", format(size.width()));
+      svgElement.setAttribute("height", format(size.height()));
     }
     return svgElement;
   }

@@ -1,7 +1,12 @@
 = SVGBuilder
 
 == Todo
-Should make Displacement an interface, use the record only as an internal implementation of it; and introduce a Size class that is a positive displacement.
+Should make Displacement an interface, use the record only as an internal implementation of it; and introduce a Size class that is a positive displacement. Or make it not a displacement? Might serve for scale and spacing concepts (width, height).
+
+Size + displacement equals size
+displacement + size equals displacement
+
+A Size is a Zone that starts at zero.
 
 Can zone size be negative; can setSize over elements move starting point…?
 

@@ -20,24 +20,32 @@ public record Displacement (double right, double down) {
     return new Displacement(length, length);
   }
 
-  public static Displacement given(double x, double y) {
-    return new Displacement(x, y);
+  public static Displacement given(double right, double down) {
+    return new Displacement(right, down);
   }
 
-  public static Displacement horizontal(double right) {
+  public static Displacement left(double left) {
+    return new Displacement(-left, 0d);
+  }
+
+  public static Displacement right(double right) {
     return new Displacement(right, 0d);
   }
 
-  public static Displacement vertical(double down) {
+  public static Displacement down(double down) {
     return new Displacement(0d, down);
   }
 
+  public static Displacement up(double up) {
+    return new Displacement(0d, -up);
+  }
+
   public Displacement horizontal() {
-    return Displacement.horizontal(right);
+    return Displacement.right(right);
   }
 
   public Displacement vertical() {
-    return Displacement.vertical(down);
+    return Displacement.down(down);
   }
 
   public Displacement min(Displacement p) {

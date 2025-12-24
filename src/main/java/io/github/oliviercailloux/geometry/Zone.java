@@ -17,8 +17,8 @@ public class Zone {
     return new Zone(corner, corner.plus(move));
   }
 
-  private static Zone centered(Point center, Displacement size) {
-    Displacement semiSize = size.mult(0.5);
+  private static Zone centered(Point center, Size size) {
+    Displacement semiSize = size.mult(0.5).asDisplacement();
     return new Zone(center.plus(semiSize.opposite()), center.plus(semiSize));
   }
 
@@ -49,8 +49,8 @@ public class Zone {
     return start;
   }
 
-  public Displacement size() {
-    return Displacement.between(start, end);
+  public Size size() {
+    return Size.between(start, end);
   }
 
   public Point end() {
@@ -58,7 +58,7 @@ public class Zone {
   }
 
   public Point center() {
-    return start.plus(size().mult(0.5));
+    return start.plus(Displacement.between(start, end).mult(0.5));
   }
 
   /** Only if the resulting upper left corner is non negative. */
@@ -66,7 +66,7 @@ public class Zone {
     return new Zone(start.plus(move), end.plus(move));
   }
 
-  public Zone sizeCentered(Displacement newSize) {
+  public Zone resizedFixedCenter(Size newSize) {
     return Zone.centered(center(), newSize);
   }
 

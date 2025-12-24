@@ -5,7 +5,6 @@ import static com.google.common.base.Preconditions.checkArgument;
 import com.google.common.base.MoreObjects;
 import java.util.Objects;
 
-@SuppressWarnings("checkstyle:OverloadMethodsDeclarationOrder")
 public record Point (double x, double y) {
 
   public static Point origin() {
@@ -20,29 +19,9 @@ public record Point (double x, double y) {
     return new Point(x, y);
   }
 
-  public static Point square(double length) {
-    return new Point(length, length);
-  }
-
-  public static Point horizontal(double length) {
-    return new Point(length, 0d);
-  }
-
-  public static Point vertical(double height) {
-    return new Point(0d, height);
-  }
-
   public Point {
     checkArgument(x >= 0d);
     checkArgument(y >= 0d);
-  }
-
-  public Point horizontal() {
-    return Point.horizontal(x);
-  }
-
-  public Point vertical() {
-    return Point.vertical(y);
   }
 
   /** Only if the result is non negative. */
