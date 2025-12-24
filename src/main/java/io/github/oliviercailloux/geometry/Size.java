@@ -13,7 +13,7 @@ public record Size (double width, double height) {
     return new Size(0d, 0d);
   }
 
-  public static Size between(Point... corners) {
+  static Size between(Point... corners) {
     Range<Double> xs = Range.encloseAll(Stream.of(corners).mapToDouble(Point::x)::iterator);
     Range<Double> ys = Range.encloseAll(Stream.of(corners).mapToDouble(Point::y)::iterator);
     Point start = Point.given(xs.lowerEndpoint(), ys.lowerEndpoint());

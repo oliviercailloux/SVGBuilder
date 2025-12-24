@@ -1,25 +1,18 @@
 = SVGBuilder
 
-== Todo
-Should make Displacement an interface, use the record only as an internal implementation of it; and introduce a Size class that is a positive displacement. Or make it not a displacement? Might serve for scale and spacing concepts (width, height).
-
-Size + displacement equals size
-displacement + size equals displacement
-
-A Size is a Zone that starts at zero.
-
-Can zone size be negative; can setSize over elements move starting point…?
-
-Implement SVG1 DOM and https://svgwg.org/svg2-draft/types.html#InterfaceSVGElement[SVG2 DOM] and in particular getBBox.
-
 == Geometry
 For (zero, zero)-based coordinate systems which cannot go negative, with y coordinate going “down”, such as screen coordinates.
 
 This library distinguishes points from displacements and has no generic vector concept. A point is to a displacement what an instant is to a duration.
 
 - A Point is a positive absolute (x, y) position in the coordinate system.
-- A Displacement may be positive or negative (meaning that each of its coordinate can be). It should be used when planning to add it to a Point or another Displacement. It can represent a size as well (which are considered possibly negative, for the same reason that a duration can be negative).
-- A Zone delimits a rectangular area in the coordinate system. It is caracterized by two Points, the top-left and the bottom-right corners, or equivalently, a Point and a positive Displacement. It corresponds to a localized instance of a vector.
+- A Displacement may be positive or negative (meaning that each of its coordinate can be). It should be used when planning to add it to a Point or another Displacement.
+- A Size is positive, it has a width and a height. It can also represent a scale or a spacing.
+- A Zone delimits a rectangular area in the coordinate system. It is caracterized by two Points, the top-left and the bottom-right corners, or equivalently, a Point and a Size.
+
+A Size can be converted to a Displacement, which can be added to a Point, several Point instances determine a Zone, which yields a Size.
+
+When you want a vector, use a Displacement if you intend to use it for computing coordinates; transform it to a Point or a Zone once you want it to represent an absolute location or rectangle; from the Zone obtain a Size when you want to represent a (positive) size.
 
 // These definitions adopt the usual conception of a mathematical vector, which represents a family of localized instances of vectors. For example, the vector (3, 4) is considered as the same vector when drawn from (0, 0) to (3, 4) or from (1, 1) to (4, 5). These represent however two different localized instances of vectors.
 // As another example, when considering a line defined mathematically as x + lambda y with x = (3, 2) and y = (1, 1), y is usually mentally conceived as a localized instance of a vector, based at x instead of based at zero or anywhere else. If drawing the line on paper, one would draw y from (3, 2) to (4, 3) and not from (0, 0) to (1, 1).
@@ -30,6 +23,8 @@ This library separates points from displacements (instead of embracing a general
 Some related discussion https://gamedev.stackexchange.com/questions/44314/do-i-need-a-point-and-a-vector-object-or-just-using-a-vector-object-to-represen[here]
 
 == About SVG 2
+Todo: Implement SVG1 DOM and https://svgwg.org/svg2-draft/types.html#InterfaceSVGElement[SVG2 DOM] and in particular getBBox.
+
 From https://stackoverflow.com/q/26088839/: “ Asking if a browser supports SVG 2 is like asking if a browser supports HTML5. It seems like a totally reasonable question, but it doesn't work like that. The best we can do is test if a browser supports a feature, rather than a version of spec. ” Jan 2016: “Browsers are implementing individual features as the spec stabilizes and interest exists, they are not waiting to implement "SVG 2" all at once.” https://github.com/Fyrd/caniuse/issues/1143 Nov 2016: “SVG 2 is on life support.” http://tavmjong.free.fr/svg2_status.html May 2018: “After a near death experience, SVG 2 is back.”, https://www.patreon.com/posts/svg-2-status-19078074, Tavmjong Bah Sep 2022: “It seems chromium suppports ~40-50% of SVG 2 which is huge and enable many impacting usecases.” https://github.com/Fyrd/caniuse/issues/1143#issuecomment-1233975910 Jan 2023: some features of SVG 2 work, but nobody seem to know which ones. https://cloudfour.com/thinks/so-you-can-set-an-svg-circles-radius-in-css/ March 2023: https://svgwg.org/svg2-draft/ (but the three commits of 2023 are one line each, https://github.com/w3c/svgwg/commits/main/) https://github.com/Fyrd/caniuse/issues/1143 We follow MDN (eg do not use version and baseProfile attributes, “Both version and baseProfile attributes are deprecated in SVG 2”, https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Getting_Started).
 
 == Batik and SVG DOM 1.0
