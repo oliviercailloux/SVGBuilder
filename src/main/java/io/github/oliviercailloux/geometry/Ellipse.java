@@ -18,32 +18,32 @@ public class Ellipse {
      * crossing the foci has its upper right corner at (a cos π/4, b sin π/4) = (√2 a / 2, √2 b / 2)
      * with, I think, a = √2 b. Its width is √2 a = 2 b and height is √2 b = a.
      */
-    return ab(new Point(semiHeight * Math.sqrt(2d), semiHeight));
+    return ab(new Displacement(semiHeight * Math.sqrt(2d), semiHeight));
   }
 
-  public static Ellipse ab(Point semiSize) {
+  public static Ellipse ab(Displacement semiSize) {
     return new Ellipse(semiSize);
   }
 
-  public static Ellipse fullSize(Point size) {
+  public static Ellipse fullSize(Displacement size) {
     return ab(size.mult(1d / 2d));
   }
 
-  private final Point semiSize;
+  private final Displacement semiSize;
 
-  private Ellipse(Point size) {
+  private Ellipse(Displacement size) {
     this.semiSize = checkNotNull(size);
   }
 
-  public Point semiSize() {
+  public Displacement semiSize() {
     return semiSize;
   }
 
-  public Point size() {
+  public Displacement size() {
     return semiSize.mult(2d);
   }
 
-  public Point inscribedRectangleSize() {
+  public Displacement inscribedRectangleSize() {
     return size().mult(1d / Math.sqrt(2d));
   }
 

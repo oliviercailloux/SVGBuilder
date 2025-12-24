@@ -3,6 +3,7 @@ package io.github.oliviercailloux.svgb;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Verify.verify;
 
+import io.github.oliviercailloux.geometry.Displacement;
 import io.github.oliviercailloux.geometry.Point;
 import io.github.oliviercailloux.geometry.Zone;
 import io.github.oliviercailloux.jaris.xml.DomHelper;
@@ -84,14 +85,14 @@ public class SvgHelper {
     return Optional.of(Point.given(width, height));
   }
 
-  public static Element setSize(Element svgElement, Point size) {
+  public static Element setSize(Element svgElement, Displacement size) {
     if (DomHelper.xmlName(svgElement).equals(RectangleElement.XML_NAME)
         && size.equals(Point.origin())) {
       svgElement.removeAttribute("width");
       svgElement.removeAttribute("height");
     } else {
-      svgElement.setAttribute("width", format(size.x()));
-      svgElement.setAttribute("height", format(size.y()));
+      svgElement.setAttribute("width", format(size.right()));
+      svgElement.setAttribute("height", format(size.down()));
     }
     return svgElement;
   }

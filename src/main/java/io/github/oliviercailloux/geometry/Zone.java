@@ -13,12 +13,12 @@ public class Zone {
   }
 
   @SuppressWarnings("unused")
-  private static Zone cornered(Point corner, Vector move) {
+  private static Zone cornered(Point corner, Displacement move) {
     return new Zone(corner, corner.plus(move));
   }
 
-  private static Zone centered(Point center, Point size) {
-    Point semiSize = size.mult(0.5);
+  private static Zone centered(Point center, Displacement size) {
+    Displacement semiSize = size.mult(0.5);
     return new Zone(center.plus(semiSize.opposite()), center.plus(semiSize));
   }
 
@@ -49,14 +49,8 @@ public class Zone {
     return start;
   }
 
-  /** Size as a displacement. */
-  @SuppressWarnings("unused")
-  private Displacement across() {
+  public Displacement size() {
     return Displacement.between(start, end);
-  }
-
-  public Point size() {
-    return end.minus(start);
   }
 
   public Point end() {
@@ -68,11 +62,11 @@ public class Zone {
   }
 
   /** Only if the resulting upper left corner is non negative. */
-  public Zone move(Vector move) {
+  public Zone move(Displacement move) {
     return new Zone(start.plus(move), end.plus(move));
   }
 
-  public Zone sizeCentered(Point newSize) {
+  public Zone sizeCentered(Displacement newSize) {
     return Zone.centered(center(), newSize);
   }
 
@@ -81,7 +75,7 @@ public class Zone {
    * given extension is negative. Equivalently, the smallest zone that encloses each of its current
    * corners and each of its current corners plus the given extension.
    */
-  public Zone extend(Vector extension) {
+  public Zone extend(Displacement extension) {
     return Zone.enclosingStatic(start, end, start.plus(extension), end.plus(extension));
   }
 

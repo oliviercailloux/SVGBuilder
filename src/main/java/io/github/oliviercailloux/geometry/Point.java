@@ -5,9 +5,8 @@ import static com.google.common.base.Preconditions.checkArgument;
 import com.google.common.base.MoreObjects;
 import java.util.Objects;
 
-/** Or size */
 @SuppressWarnings("checkstyle:OverloadMethodsDeclarationOrder")
-public record Point (double x, double y) implements Vector {
+public record Point (double x, double y) {
 
   public static Point origin() {
     return new Point(0d, 0d);
@@ -38,43 +37,37 @@ public record Point (double x, double y) implements Vector {
     checkArgument(y >= 0d);
   }
 
-  @Override
   public Point horizontal() {
     return Point.horizontal(x);
   }
 
-  @Override
   public Point vertical() {
     return Point.vertical(y);
   }
 
   /** Only if the result is non negative. */
-  @Override
-  public Point plus(Vector p) {
-    return new Point(x + p.x(), y + p.y());
+  public Point plus(Displacement p) {
+    return new Point(x + p.right(), y + p.down());
   }
 
+  /** Equivalent to <code>plus(p.opposite())</code>. */
   /** Only if the result is non negative. */
-  @Override
-  public Point minus(Vector p) {
-    return new Point(x - p.x(), y - p.y());
+  public Point minus(Displacement p) {
+    return new Point(x - p.right(), y - p.down());
   }
 
   /** A positive scaling factor */
-  @Override
   public Point mult(double scale) {
     return mult(scale, scale);
   }
 
-  @Override
   public Point mult(double scaleX, double scaleY) {
     checkArgument(scaleX >= 0d);
     checkArgument(scaleY >= 0d);
     return new Point(x * scaleX, y * scaleY);
   }
 
-  @Override
-  public Displacement opposite() {
-    return Displacement.between(this, Point.origin());
+  public String coordinates() {
+    return "(" + Double.toString(x()) + ", " + Double.toString(y()) + ")";
   }
 }

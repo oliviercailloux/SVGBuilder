@@ -2,8 +2,7 @@ package io.github.oliviercailloux.geometry;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-/** Or size */
-record IntPoint (int x, int y) implements IntVector {
+record IntPoint (int x, int y) {
 
   public static IntPoint origin() {
     return new IntPoint(0, 0);
@@ -32,12 +31,6 @@ record IntPoint (int x, int y) implements IntVector {
   public IntPoint {
     checkArgument(x >= 0);
     checkArgument(y >= 0);
-  }
-
-  /** Only if the result is positive. */
-  @Override
-  public IntPoint moveBy(IntVector p) {
-    return new IntPoint(x + p.x(), y + p.y());
   }
 
   /** A positive scaling factor */

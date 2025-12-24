@@ -4,17 +4,15 @@ import com.google.common.base.MoreObjects;
 import java.util.Objects;
 
 /**
- * Positive or negative. Note that (I think that) there is no reason to request a Displacement as a
- * parameter to a method, rather accept a Vector.
+ * Positive or negative.
  */
-@SuppressWarnings("checkstyle:OverloadMethodsDeclarationOrder")
-public record Displacement (double right, double down) implements Vector {
+public record Displacement (double right, double down) {
 
   public static Displacement noMove() {
     return new Displacement(0d, 0d);
   }
 
-  public static Displacement between(Vector start, Point end) {
+  public static Displacement between(Point start, Point end) {
     return new Displacement(end.x() - start.x(), end.y() - start.y());
   }
 
@@ -34,22 +32,10 @@ public record Displacement (double right, double down) implements Vector {
     return new Displacement(0d, down);
   }
 
-  @Override
-  public double x() {
-    return right;
-  }
-
-  @Override
-  public double y() {
-    return down;
-  }
-
-  @Override
   public Displacement horizontal() {
     return Displacement.horizontal(right);
   }
 
-  @Override
   public Displacement vertical() {
     return Displacement.vertical(down);
   }
@@ -62,28 +48,29 @@ public record Displacement (double right, double down) implements Vector {
     return new Displacement(Math.max(right, p.right()), Math.max(down, p.down()));
   }
 
-  @Override
-  public Displacement plus(Vector p) {
-    return new Displacement(right + p.x(), down + p.y());
+  public Displacement plus(Displacement p) {
+    return new Displacement(right + p.right(), down + p.down());
   }
 
-  @Override
-  public Displacement minus(Vector p) {
-    return new Displacement(right - p.x(), down - p.y());
+  /** Equivalent to <code>plus(p.opposite())</code>. */
+  public Displacement minus(Displacement p) {
+    return new Displacement(right - p.right(), down - p.down());
   }
 
-  @Override
   public Displacement mult(double factor) {
     return mult(factor, factor);
   }
 
-  @Override
   public Displacement mult(double factorX, double factorY) {
     return new Displacement(right * factorX, down * factorY);
   }
 
-  @Override
+  /** The displacement which, added to this displacement, yields the origin. */
   public Displacement opposite() {
     return mult(-1d);
+  }
+
+  public String coordinates() {
+    return "Δ(" + Double.toString(right()) + ", " + Double.toString(down()) + ")";
   }
 }

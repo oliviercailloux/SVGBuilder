@@ -1,5 +1,6 @@
 package io.github.oliviercailloux.svgb;
 
+import io.github.oliviercailloux.geometry.Displacement;
 import io.github.oliviercailloux.geometry.Point;
 import io.github.oliviercailloux.geometry.Zone;
 import org.w3c.dom.Element;
@@ -29,7 +30,7 @@ public class SquareElement {
   }
 
   public SquareElement setSize(double size) {
-    delegate.setZone(Zone.at(delegate.zone().start()).extend(Point.square(size)));
+    delegate.setZone(Zone.at(delegate.zone().start()).extend(Displacement.allDirections(size)));
     return this;
   }
 

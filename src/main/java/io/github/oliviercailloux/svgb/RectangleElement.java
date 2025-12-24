@@ -2,6 +2,7 @@ package io.github.oliviercailloux.svgb;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
+import io.github.oliviercailloux.geometry.Displacement;
 import io.github.oliviercailloux.geometry.Point;
 import io.github.oliviercailloux.geometry.Zone;
 import io.github.oliviercailloux.jaris.xml.DomHelper;
@@ -48,8 +49,8 @@ public class RectangleElement {
     return SvgHelper.getDouble(element, "height", 0d);
   }
 
-  private Point size() {
-    return Point.given(width(), height());
+  private Displacement size() {
+    return Displacement.given(width(), height());
   }
 
   @SuppressWarnings("unused")

@@ -2,6 +2,7 @@ package io.github.oliviercailloux.svgb;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import io.github.oliviercailloux.geometry.Displacement;
 import io.github.oliviercailloux.geometry.Point;
 import io.github.oliviercailloux.geometry.Zone;
 import io.github.oliviercailloux.jaris.xml.DomHelper;
@@ -65,7 +66,7 @@ public class SvgDocumentHelper {
     }
   }
 
-  public void setSize(Point size) {
+  public void setSize(Displacement size) {
     SvgHelper.setSize(root, size);
   }
 
@@ -110,9 +111,9 @@ public class SvgDocumentHelper {
       ell.setAttribute("cx", SvgHelper.format(center.x()));
       ell.setAttribute("cy", SvgHelper.format(center.y()));
     }
-    final Point semiSize = zone.size().mult(0.5);
-    ell.setAttribute("rx", SvgHelper.format(semiSize.x()));
-    ell.setAttribute("ry", SvgHelper.format(semiSize.y()));
+    final Displacement semiSize = zone.size().mult(0.5);
+    ell.setAttribute("rx", SvgHelper.format(semiSize.right()));
+    ell.setAttribute("ry", SvgHelper.format(semiSize.down()));
     return ell;
   }
 

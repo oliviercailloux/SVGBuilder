@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.base.Verify.verify;
 
+import io.github.oliviercailloux.geometry.Displacement;
 import io.github.oliviercailloux.geometry.Point;
 import io.github.oliviercailloux.geometry.Zone;
 import io.github.oliviercailloux.jaris.xml.DomHelper;
@@ -66,7 +67,7 @@ public class LineElement {
     return this;
   }
 
-  public LineElement setSize(Point size) {
+  public LineElement setSize(Displacement size) {
     checkState(element.getAttribute("x1").isEmpty() == element.getAttribute("y1").isEmpty());
     boolean startSet = !element.getAttribute("x1").isEmpty();
     checkState(element.getAttribute("x2").isEmpty() == element.getAttribute("y2").isEmpty());

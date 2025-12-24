@@ -2,7 +2,7 @@ package io.github.oliviercailloux.svgb;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-import io.github.oliviercailloux.geometry.Vector;
+import io.github.oliviercailloux.geometry.Displacement;
 import io.github.oliviercailloux.jaris.xml.DomHelper;
 import io.github.oliviercailloux.jaris.xml.XmlName;
 import org.w3c.dom.Element;
@@ -27,9 +27,9 @@ public class GElement {
     return element;
   }
 
-  public GElement translate(Vector offset) {
+  public GElement translate(Displacement offset) {
     element.setAttribute("transform",
-        "translate(%s, %s)".formatted(SvgHelper.format(offset.x()), SvgHelper.format(offset.y())));
+        "translate(%s, %s)".formatted(SvgHelper.format(offset.right()), SvgHelper.format(offset.down())));
     return this;
   }
 }
