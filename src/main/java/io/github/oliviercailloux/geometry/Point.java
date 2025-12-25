@@ -29,7 +29,6 @@ public record Point (double x, double y) {
     return new Point(x + p.right(), y + p.down());
   }
 
-  /** Equivalent to <code>plus(p.opposite())</code>. */
   /** Only if the result is non negative. */
   public Point minus(Displacement p) {
     return new Point(x - p.right(), y - p.down());
