@@ -99,7 +99,7 @@ public class SvgHelper {
   }
 
   public static Element setZone(Element svgElement, Zone zone) {
-    setPosition(svgElement, zone.start());
+    setPosition(svgElement, zone.topLeft());
     setSize(svgElement, zone.size());
     return svgElement;
   }

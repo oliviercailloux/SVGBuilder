@@ -120,14 +120,14 @@ public class SvgDocumentHelper {
 
   public Element foreign(Zone zone) {
     final Element el = document.createElementNS(SVG_NS, "foreignObject");
-    SvgHelper.setPosition(el, zone.start());
+    SvgHelper.setPosition(el, zone.topLeft());
     SvgHelper.setSize(el, zone.size());
     return el;
   }
 
   public Element use(Zone zone) {
     final Element el = document.createElementNS(SVG_NS, "use");
-    SvgHelper.setPosition(el, zone.start());
+    SvgHelper.setPosition(el, zone.topLeft());
     if (!zone.size().equals(Point.origin())) {
       SvgHelper.setSize(el, zone.size());
     }

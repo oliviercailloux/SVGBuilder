@@ -4,7 +4,7 @@ import com.google.common.base.MoreObjects;
 import java.util.Objects;
 
 /**
- * Positive or negative.
+ * May be negative.
  */
 public record Displacement (double right, double down) {
 

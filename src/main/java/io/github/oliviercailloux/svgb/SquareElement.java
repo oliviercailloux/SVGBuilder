@@ -2,6 +2,7 @@ package io.github.oliviercailloux.svgb;
 
 import io.github.oliviercailloux.geometry.Displacement;
 import io.github.oliviercailloux.geometry.Point;
+import io.github.oliviercailloux.geometry.Size;
 import io.github.oliviercailloux.geometry.Zone;
 import org.w3c.dom.Element;
 
@@ -25,12 +26,12 @@ public class SquareElement {
    * equals the current start).
    */
   public SquareElement setStart(Point start) {
-    delegate.setZone(Zone.at(start).resizedFixedCenter(delegate.zone().size()));
+    delegate.setZone(Zone.at(start, delegate.zone().size()));
     return this;
   }
 
   public SquareElement setSize(double size) {
-    delegate.setZone(Zone.at(delegate.zone().start()).extend(Displacement.allDirections(size)));
+    delegate.setZone(Zone.at(delegate.zone().topLeft(), Size.square(size)));
     return this;
   }
 

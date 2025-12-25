@@ -8,13 +8,12 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 public class Zone {
-  public static Zone at(Point singular) {
-    return new Zone(singular, singular);
+  public static Zone at(Point corner, Displacement move) {
+    return new Zone(corner, corner.plus(move));
   }
 
-  @SuppressWarnings("unused")
-  private static Zone cornered(Point corner, Displacement move) {
-    return new Zone(corner, corner.plus(move));
+  public static Zone at(Point corner, Size size) {
+    return Zone.at(corner, size.asDisplacement());
   }
 
   private static Zone centered(Point center, Size size) {
@@ -22,7 +21,7 @@ public class Zone {
     return new Zone(center.plus(semiSize.opposite()), center.plus(semiSize));
   }
 
-  private static Zone enclosingStatic(Point... corners) {
+  public static Zone enclosing(Point... corners) {
     Range<Double> xs = Range.encloseAll(Stream.of(corners).mapToDouble(Point::x)::iterator);
     Range<Double> ys = Range.encloseAll(Stream.of(corners).mapToDouble(Point::y)::iterator);
     Point start = Point.given(xs.lowerEndpoint(), ys.lowerEndpoint());
@@ -30,9 +29,15 @@ public class Zone {
     return new Zone(start, end);
   }
 
+  public static Zone enclosing(Zone... zones) {
+    Point[] corners =
+        Stream.of(zones).flatMap(z -> Stream.of(z.topLeft(), z.bottomRight())).toArray(Point[]::new);
+    return enclosing(corners);
+  }
+
   @SuppressWarnings("unused")
   private static Zone cornerMove(Point corner, Displacement move) {
-    return Zone.enclosingStatic(corner, corner.plus(move));
+    return Zone.enclosing(corner, corner.plus(move));
   }
 
   private final Point start;
@@ -45,20 +50,28 @@ public class Zone {
     this.end = end;
   }
 
-  public Point start() {
+  public Point topLeft() {
     return start;
+  }
+
+  public Point topRight() {
+    return Point.given(end.x(), start.y());
+  }
+  
+  public Point bottomLeft() {
+    return Point.given(start.x(), end.y());
+  }
+
+  public Point bottomRight() {
+    return end;
   }
 
   public Size size() {
     return Size.between(start, end);
-  }
-
-  public Point end() {
-    return end;
-  }
+  }  
 
   public Point center() {
-    return start.plus(Displacement.between(start, end).mult(0.5));
+    return start.plus(size().asDisplacement().mult(0.5));
   }
 
   /** Only if the resulting upper left corner is non negative. */
@@ -76,11 +89,11 @@ public class Zone {
    * corners and each of its current corners plus the given extension.
    */
   public Zone extend(Displacement extension) {
-    return Zone.enclosingStatic(start, end, start.plus(extension), end.plus(extension));
+    return Zone.enclosing(start, end, start.plus(extension), end.plus(extension));
   }
 
-  public Zone enclosing(Point... corners) {
-    return Zone.enclosingStatic(
+  public Zone andEnclosing(Point... corners) {
+    return Zone.enclosing(
         Stream.concat(Stream.of(corners), Stream.of(start, end)).toArray(Point[]::new));
   }
 

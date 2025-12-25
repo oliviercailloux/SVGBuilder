@@ -28,7 +28,7 @@ public class SvgTests {
   void testEllipse() throws Exception {
     DomHelper d = DomHelper.domHelper();
     SvgDocumentHelper h = SvgDocumentHelper.using(d);
-    Element e = h.ellipse(Zone.at(Point.origin()).extend(Displacement.allDirections(200)));
+    Element e = h.ellipse(Zone.at(Point.origin(), Size.square(200)));
     h.document().getDocumentElement().appendChild(e);
 
     String actual = d.toString(h.document());
@@ -42,17 +42,17 @@ public class SvgTests {
   void testRectangles() throws Exception {
     DomHelper d = DomHelper.domHelper();
     SvgDocumentHelper h = SvgDocumentHelper.using(d);
-    Zone zone1 = Zone.at(Point.origin()).extend(Displacement.allDirections(200));
+    Zone zone1 = Zone.at(Point.origin(), Size.square(200));
     {
       Element e = h.rectangle(zone1).element();
       h.document().getDocumentElement().appendChild(e);
     }
-    Zone zone2 = Zone.at(zone1.end()).extend(Displacement.allDirections(100));
+    Zone zone2 = Zone.at(zone1.bottomRight(), Size.square(100));
     {
       Element e = h.rectangle(zone2).element();
       h.document().getDocumentElement().appendChild(e);
     }
-    Zone zone3 = Zone.at(zone2.end()).extend(Displacement.allDirections(50));
+    Zone zone3 = Zone.at(zone2.bottomRight(), Size.square(50));
     {
       Element e = h.rectangle(zone3).element();
       h.document().getDocumentElement().appendChild(e);
@@ -72,7 +72,8 @@ public class SvgTests {
     SvgHelper.setSize(h.document().getDocumentElement(), Size.square(500));
     Element g = h.g().translate(Displacement.allDirections(200)).getElement();
     h.document().getDocumentElement().appendChild(g);
-    Element e = h.ellipse(Zone.at(Point.given(50d, 50d)).extend(Displacement.allDirections(100)));
+    Element e =
+        h.ellipse(Zone.at(Point.given(50d, 50d), Size.square(100)));
     g.appendChild(e);
 
     String actual = d.toString(h.document());
@@ -95,8 +96,9 @@ public class SvgTests {
      * In Firefox, this line seems to measure about 50 cm indeed (up to my measurement
      * approximation, about ± 2 mm)
      */
-    LineElement line = h.line(Zone.at(start).extend(Displacement.given(50d * dpi / 2.54d, 0d)))
-        .setStroke("black");
+    LineElement line =
+        h.line(Zone.enclosing(start).extend(Displacement.given(50d * dpi / 2.54d, 0d)))
+            .setStroke("black");
     h.document().getDocumentElement().appendChild(line.element());
 
     String actual = d.toString(h.document());
@@ -121,8 +123,7 @@ public class SvgTests {
         """);
     Document doc = h.document();
     doc.getDocumentElement().appendChild(style.element());
-    RectangleElement rect =
-        h.rectangle(Zone.at(Point.origin()).extend(Displacement.allDirections(100)));
+    RectangleElement rect = h.rectangle(Zone.at(Point.origin(), Size.square(100)));
     doc.getDocumentElement().appendChild(rect.element());
     TextElement text = h.text().setBaselineStart(Point.given(50d, 50d)).setContent("Hello");
     doc.getDocumentElement().appendChild(text.element());

@@ -32,7 +32,7 @@ public class LineElement {
   }
 
   public LineElement across(Zone zone) {
-    return setStart(zone.start()).setDestination(zone.end());
+    return setStart(zone.topLeft()).setDestination(zone.bottomRight());
   }
 
   /** Does not support length or percentage. */

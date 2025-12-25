@@ -43,15 +43,13 @@ public record Size (double width, double height) {
     return new Size(width - p.width(), height - p.height());
   }
 
-  /** A positive scaling factor */
+  /** A non negative scaling factor */
   public Size mult(double scale) {
-    return mult(scale, scale);
+    return mult(Size.square(scale));
   }
 
-  public Size mult(double scaleWidth, double scaleHeight) {
-    checkArgument(scaleWidth >= 0d);
-    checkArgument(scaleHeight >= 0d);
-    return new Size(width * scaleWidth, height * scaleHeight);
+  public Size mult(Size scale) {
+    return new Size(width * scale.width(), height * scale.height());
   }
 
   public Displacement asDisplacement() {

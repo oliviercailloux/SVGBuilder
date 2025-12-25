@@ -59,7 +59,7 @@ public class RectangleElement {
   }
 
   public Zone zone() {
-    return Zone.at(start()).resizedFixedCenter(size());
+    return Zone.at(start(), size());
   }
 
   public RectangleElement setZone(Zone zone) {

@@ -35,15 +35,13 @@ public record Point (double x, double y) {
     return new Point(x - p.right(), y - p.down());
   }
 
-  /** A positive scaling factor */
+  /** A non negative scaling factor */
   public Point mult(double scale) {
-    return mult(scale, scale);
+    return mult(Size.square(scale));
   }
 
-  public Point mult(double scaleX, double scaleY) {
-    checkArgument(scaleX >= 0d);
-    checkArgument(scaleY >= 0d);
-    return new Point(x * scaleX, y * scaleY);
+  public Point mult(Size scale) {
+    return new Point(x * scale.width(), y * scale.height());
   }
 
   public String coordinates() {
