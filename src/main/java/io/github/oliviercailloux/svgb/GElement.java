@@ -28,8 +28,8 @@ public class GElement {
   }
 
   public GElement translate(Displacement offset) {
-    element.setAttribute("transform",
-        "translate(%s, %s)".formatted(SvgHelper.format(offset.right()), SvgHelper.format(offset.down())));
+    element.setAttribute("transform", "translate(%s, %s)"
+        .formatted(SvgHelper.format(offset.right()), SvgHelper.format(offset.down())));
     return this;
   }
 }
