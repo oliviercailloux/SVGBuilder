@@ -30,8 +30,8 @@ public class Zone {
   }
 
   public static Zone enclosing(Zone... zones) {
-    Point[] corners =
-        Stream.of(zones).flatMap(z -> Stream.of(z.topLeft(), z.bottomRight())).toArray(Point[]::new);
+    Point[] corners = Stream.of(zones).flatMap(z -> Stream.of(z.topLeft(), z.bottomRight()))
+        .toArray(Point[]::new);
     return enclosing(corners);
   }
 
@@ -57,7 +57,7 @@ public class Zone {
   public Point topRight() {
     return Point.given(end.x(), start.y());
   }
-  
+
   public Point bottomLeft() {
     return Point.given(start.x(), end.y());
   }
@@ -68,7 +68,7 @@ public class Zone {
 
   public Size size() {
     return Size.between(start, end);
-  }  
+  }
 
   public Point center() {
     return start.plus(size().asDisplacement().mult(0.5));
@@ -93,8 +93,8 @@ public class Zone {
   }
 
   public Zone andEnclosing(Point... corners) {
-    return Zone.enclosing(
-        Stream.concat(Stream.of(corners), Stream.of(start, end)).toArray(Point[]::new));
+    return Zone
+        .enclosing(Stream.concat(Stream.of(corners), Stream.of(start, end)).toArray(Point[]::new));
   }
 
   /** Mainly conceived as a debug string, more compact (but less explicit) than toString(). */
