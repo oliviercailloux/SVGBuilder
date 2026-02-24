@@ -4,13 +4,13 @@
   <parent>
     <groupId>io.github.oliviercailloux</groupId>
     <artifactId>pom</artifactId>
-    <version>0.0.27</version>
+    <version>0.0.30</version>
   </parent>
   <artifactId>svgb</artifactId>
   <version>0.0.9-SNAPSHOT</version>
   <name>SVG Builder</name>
   <properties>
-    <github-repository>${project.name}</github-repository>
+    <github-repository>SVGBuilder</github-repository>
   </properties>
 
   <dependencies>
