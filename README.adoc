@@ -18,7 +18,7 @@ When you want a vector, use a Displacement if you intend to use it for computing
 // As another example, when considering a line defined mathematically as x + lambda y with x = (3, 2) and y = (1, 1), y is usually mentally conceived as a localized instance of a vector, based at x instead of based at zero or anywhere else. If drawing the line on paper, one would draw y from (3, 2) to (4, 3) and not from (0, 0) to (1, 1).
 
 == Rationale
-This library separates points from displacements (instead of embracing a general vector concept) because is not a general purpose or efficiency focused mathematical library. It is rather meant for use in high level drawing operations. This is less flexible but offers clearer semantics. 
+This library separates points from displacements (instead of embracing a general vector concept) because it is meant for use in high level drawing operations (rather than being a general purpose or efficiency focused mathematical library). This is less flexible but offers clearer semantics. 
 
 Some related discussion https://gamedev.stackexchange.com/questions/44314/do-i-need-a-point-and-a-vector-object-or-just-using-a-vector-object-to-represen[here]
 
