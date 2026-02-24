@@ -8,11 +8,11 @@ This library distinguishes points from displacements and has no generic vector c
 - A Point is a positive absolute (x, y) position in the coordinate system.
 - A Displacement may be positive or negative (meaning that each of its coordinate can be). It should be used when planning to add it to a Point or another Displacement.
 - A Size is positive, it has a width and a height. It can also represent a scale or a spacing.
-- A Zone delimits a rectangular area in the coordinate system. It is caracterized by two Points, the top-left and the bottom-right corners, or equivalently, a Point and a Size.
+- A Zone delimits a rectangular area in the coordinate system. It is caracterized by two Points, the top-left and the bottom-right corners; or equivalently, a Point and a Size.
 
 A Size can be converted to a Displacement, which can be added to a Point, several Point instances determine a Zone, which yields a Size.
 
-When you want a vector, use a Displacement if you intend to use it for computing coordinates; transform it to a Point or a Zone once you want it to represent an absolute location or rectangle; from the Zone obtain a Size when you want to represent a (positive) size.
+When you want a vector, use a Displacement if you intend to use it for computing coordinates; transform it to a Point or a Zone for representing an absolute location or rectangle; from the Zone obtain a Size when you want to represent a (positive) size.
 
 // These definitions adopt the usual conception of a mathematical vector, which represents a family of localized instances of vectors. For example, the vector (3, 4) is considered as the same vector when drawn from (0, 0) to (3, 4) or from (1, 1) to (4, 5). These represent however two different localized instances of vectors.
 // As another example, when considering a line defined mathematically as x + lambda y with x = (3, 2) and y = (1, 1), y is usually mentally conceived as a localized instance of a vector, based at x instead of based at zero or anywhere else. If drawing the line on paper, one would draw y from (3, 2) to (4, 3) and not from (0, 0) to (1, 1).
